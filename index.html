@@ -3,309 +3,263 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>NominPro 2026 | La Calculadora Salarial Definitiva</title>
-    <meta name="description" content="Calcula tu sueldo neto y finiquito en España (Actualizado 2026). Incluye tramos autonómicos, topes legales y descarga en PDF.">
+    <title>NominPro Ultra 2026 | La Suite Laboral Nº1 de España</title>
+    <meta name="description" content="Calculadora profesional de sueldo neto, finiquito, indemnización y declaración de la renta. Datos actualizados 2026 con tramos autonómicos y deducciones.">
     
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;500;700;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;500;700;800&display=swap" rel="stylesheet">
 
     <style>
-        /* VARIABLES CLARO / OSCURO */
         :root[data-theme="light"] { 
-            --primary: #6366f1; --primary-hover: #4f46e5; --success: #10b981; 
-            --bg: #f3f4f6; --card-bg: #ffffff; --text-main: #111827; --text-muted: #6b7280;
-            --border: #e5e7eb; --input-bg: #f9fafb;
+            --p: #4338ca; --p-h: #3730a3; --s: #10b981; --bg: #f8fafc; --c: #ffffff; --t: #0f172a; --m: #64748b; --b: #e2e8f0;
         }
         :root[data-theme="dark"] { 
-            --primary: #818cf8; --primary-hover: #6366f1; --success: #34d399; 
-            --bg: #111827; --card-bg: #1f2937; --text-main: #f9fafb; --text-muted: #9ca3af;
-            --border: #374151; --input-bg: #374151;
+            --p: #818cf8; --p-h: #6366f1; --s: #34d399; --bg: #020617; --c: #0f172a; --t: #f1f5f9; --m: #94a3b8; --b: #1e293b;
         }
-
-        * { box-sizing: border-box; font-family: 'Outfit', sans-serif; transition: background-color 0.3s, color 0.3s; }
-        body { background: var(--bg); color: var(--text-main); margin: 0; padding: 0; }
-
-        /* HEADER & THEME TOGGLE */
-        header { background: var(--card-bg); padding: 1rem 5%; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--border); position: sticky; top: 0; z-index: 100; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05); }
-        .logo-text { font-weight: 900; font-size: 1.5rem; color: var(--primary); letter-spacing: -0.5px; }
-        .theme-btn { background: var(--border); border: none; padding: 8px 12px; border-radius: 20px; cursor: pointer; color: var(--text-main); font-weight: bold; font-size: 0.9rem; }
-
-        .container { max-width: 1050px; margin: 2rem auto; padding: 0 15px; }
         
-        /* CARD PRINCIPAL */
-        .main-card { background: var(--card-bg); border-radius: 20px; padding: 2rem; border: 1px solid var(--border); box-shadow: 0 10px 25px rgba(0,0,0,0.05); }
+        * { box-sizing: border-box; font-family: 'Plus Jakarta Sans', sans-serif; transition: 0.2s; }
+        body { background: var(--bg); color: var(--t); margin: 0; line-height: 1.5; }
 
-        /* TABS */
-        .tabs { display: flex; gap: 10px; margin-bottom: 2rem; background: var(--input-bg); padding: 5px; border-radius: 12px; }
-        .tab-btn { flex: 1; border: none; padding: 12px; border-radius: 8px; font-weight: 700; cursor: pointer; color: var(--text-muted); background: transparent; }
-        .tab-btn.active { background: var(--card-bg); color: var(--primary); box-shadow: 0 2px 5px rgba(0,0,0,0.1); }
+        header { background: var(--c); padding: 1rem 5%; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--b); sticky: top; z-index: 50; }
+        .logo { font-weight: 800; font-size: 1.5rem; letter-spacing: -1px; }
+        .logo span { color: var(--p); }
 
-        /* FORMULARIO */
-        .form-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 1.5rem; }
-        label { display: block; margin-bottom: 5px; font-weight: 700; font-size: 0.9rem; color: var(--text-main); }
-        input, select { width: 100%; padding: 12px; border: 1px solid var(--border); border-radius: 10px; font-size: 1rem; background: var(--input-bg); color: var(--text-main); outline: none; }
-        input:focus, select:focus { border-color: var(--primary); box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.2); }
-
-        .btn-calc { width: 100%; background: var(--primary); color: white; border: none; padding: 16px; border-radius: 10px; font-size: 1.1rem; font-weight: 900; cursor: pointer; margin-top: 1.5rem; text-transform: uppercase; letter-spacing: 1px; }
-        .btn-calc:hover { background: var(--primary-hover); transform: scale(0.99); }
-
-        /* RESULTADOS Y PDF */
-        .dashboard { margin-top: 2rem; display: none; grid-template-columns: 1fr 1fr; gap: 2rem; padding-top: 2rem; border-top: 1px solid var(--border); }
-        .stat-card { background: var(--input-bg); border-radius: 16px; padding: 1.5rem; text-align: center; border: 1px solid var(--border); }
-        .stat-val { font-size: 2.5rem; font-weight: 900; color: var(--success); }
+        .container { max-width: 1200px; margin: 2rem auto; padding: 0 20px; display: grid; grid-template-columns: 1.5fr 1fr; gap: 2rem; }
         
-        .btn-pdf { background: #ef4444; color: white; border: none; padding: 10px 20px; border-radius: 8px; font-weight: bold; cursor: pointer; display: flex; align-items: center; gap: 8px; margin: 15px auto 0; }
-        .btn-pdf:hover { background: #dc2626; }
-
-        /* COOKIES BANNER */
-        .cookie-banner { position: fixed; bottom: 0; left: 0; right: 0; background: var(--card-bg); border-top: 1px solid var(--border); padding: 15px 5%; display: flex; justify-content: space-between; align-items: center; z-index: 1000; box-shadow: 0 -5px 15px rgba(0,0,0,0.1); }
-        .cookie-btn { background: var(--primary); color: white; border: none; padding: 8px 20px; border-radius: 6px; font-weight: bold; cursor: pointer; }
-
-        @media (max-width: 768px) { .dashboard { grid-template-columns: 1fr; } .cookie-banner { flex-direction: column; gap: 10px; text-align: center; } }
+        .card { background: var(--c); border-radius: 24px; padding: 2rem; border: 1px solid var(--b); box-shadow: 0 4px 20px -2px rgba(0,0,0,0.05); }
         
-        /* Contenedor a exportar en PDF */
-        #pdf-content { padding: 10px; background: var(--card-bg); border-radius: 10px; }
+        .tabs { display: flex; background: var(--bg); padding: 5px; border-radius: 16px; margin-bottom: 2rem; gap: 5px; }
+        .tab { flex: 1; border: none; padding: 12px; border-radius: 12px; font-weight: 700; cursor: pointer; color: var(--m); background: transparent; font-size: 0.9rem; }
+        .tab.active { background: var(--c); color: var(--p); box-shadow: 0 4px 10px rgba(0,0,0,0.05); }
+
+        .form-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1.5fr; }
+        .field { margin-bottom: 1.2rem; }
+        label { display: block; margin-bottom: 6px; font-weight: 600; font-size: 0.85rem; color: var(--m); }
+        input, select { width: 100%; padding: 12px; border: 1.5px solid var(--b); border-radius: 12px; background: var(--bg); color: var(--t); font-size: 1rem; outline: none; }
+        input:focus { border-color: var(--p); box-shadow: 0 0 0 4px rgba(67, 56, 202, 0.1); }
+
+        .btn-p { width: 100%; background: var(--p); color: white; border: none; padding: 16px; border-radius: 14px; font-size: 1rem; font-weight: 800; cursor: pointer; margin-top: 1rem; }
+        .btn-p:hover { background: var(--p-h); transform: translateY(-2px); }
+
+        .result-panel { position: sticky; top: 100px; height: fit-content; }
+        .res-big { font-size: 2.5rem; font-weight: 800; color: var(--p); margin: 0.5rem 0; }
+        .item-row { display: flex; justify-content: space-between; padding: 12px 0; border-bottom: 1px solid var(--b); font-size: 0.95rem; }
+        
+        .badge-eco { background: #fef3c7; color: #92400e; padding: 4px 12px; border-radius: 20px; font-size: 0.75rem; font-weight: 700; display: inline-block; margin-bottom: 1rem; }
+
+        @media (max-width: 900px) { .container { grid-template-columns: 1fr; } }
+
+        /* Estilo para PDF */
+        #pdf-report { padding: 20px; }
     </style>
 </head>
 <body>
 
 <header>
-    <div class="logo-text">NominPro <span style="color:var(--text-main); font-weight:300;">2026</span></div>
-    <button class="theme-btn" onclick="toggleTheme()">🌓 Modo Noche</button>
+    <div class="logo">NOMIN<span>PRO</span> ULTRA</div>
+    <div style="display: flex; gap: 10px;">
+        <button onclick="toggleTheme()" class="tab" style="border: 1px solid var(--b)">🌓 Modo</button>
+    </div>
 </header>
 
 <div class="container">
-    <div class="main-card">
+    <div class="card">
         <div class="tabs">
-            <button class="tab-btn active" onclick="switchTab('sueldo', this)">💰 Sueldo Neto</button>
-            <button class="tab-btn" onclick="switchTab('finiquito', this)">⚖️ Finiquito (Topes Legales)</button>
+            <button class="tab active" onclick="setMode('neto', this)">💰 Sueldo Neto</button>
+            <button class="tab" onclick="setMode('renta', this)">📅 Renta 2026</button>
+            <button class="tab" onclick="setMode('finiquito', this)">⚖️ Despido/Finiquito</button>
         </div>
 
-        <div id="section-sueldo">
+        <div id="m-neto" class="module">
             <div class="form-grid">
-                <div>
-                    <label>Salario Bruto Anual (€)</label>
-                    <input type="number" id="bruto" placeholder="Ej: 30000" oninput="saveData()">
-                </div>
-                <div>
-                    <label>Comunidad Autónoma</label>
-                    <select id="comunidad" onchange="saveData()">
-                        <option value="madrid">Madrid</option>
+                <div class="field"><label>Bruto Anual (€)</label><input type="number" id="n_bruto" placeholder="32000"></div>
+                <div class="field"><label>Comunidad</label>
+                    <select id="n_ccaa">
+                        <option value="madrid">Madrid (- IRPF)</option>
                         <option value="cataluna">Cataluña</option>
                         <option value="andalucia">Andalucía</option>
                         <option value="comun">Resto de España</option>
                     </select>
                 </div>
-                <div>
-                    <label>Pagas</label>
-                    <select id="pagas" onchange="saveData()">
-                        <option value="12">12 Pagas</option>
-                        <option value="14">14 Pagas</option>
-                    </select>
-                </div>
-                <div>
-                    <label>Hijos a cargo</label>
-                    <select id="hijos" onchange="saveData()">
-                        <option value="0">0</option>
-                        <option value="1">1</option>
-                        <option value="2">2 o más</option>
-                    </select>
-                </div>
+                <div class="field"><label>Pagas</label><select id="n_pagas"><option value="12">12</option><option value="14">14</option></select></div>
+                <div class="field"><label>Hijos</label><select id="n_hijos"><option value="0">0</option><option value="1">1</option><option value="2">2+</option></select></div>
+                <div class="field"><label>Discapacidad</label><select id="n_disc"><option value="0">Ninguna</option><option value="33">> 33%</option><option value="65">> 65%</option></select></div>
+                <div class="field"><label>Movilidad Geográfica</label><select id="n_mov"><option value="0">No</option><option value="1">Sí (Nuevo empleo con mudanza)</option></select></div>
             </div>
-            <button class="btn-calc" onclick="calcularSueldo()">Analizar Nómina</button>
+            <button class="btn-p" onclick="calcNeto()">CALCULAR MI NÓMINA REAL</button>
         </div>
 
-        <div id="section-finiquito" style="display:none">
+        <div id="m-renta" class="module" style="display:none">
             <div class="form-grid">
-                <div>
-                    <label>Salario Mensual (Con prorratas)</label>
-                    <input type="number" id="mensual" placeholder="Ej: 2000" oninput="saveData()">
-                </div>
-                <div>
-                    <label>Años trabajados</label>
-                    <input type="number" id="antiguedad" placeholder="Ej: 3.5" step="0.1" oninput="saveData()">
-                </div>
-                <div>
-                    <label>Causa del Despido</label>
-                    <select id="motivo" onchange="saveData()">
-                        <option value="33">Improcedente (33 días, máx 24 meses)</option>
-                        <option value="20">Objetivo (20 días, máx 12 meses)</option>
-                        <option value="0">Baja Voluntaria (Sin indemnización)</option>
+                <div class="field"><label>Ingresos Totales Brutos</label><input type="number" id="r_bruto"></div>
+                <div class="field"><label>Retenciones ya aplicadas</label><input type="number" id="r_ret"></div>
+                <div class="field"><label>Alquiler pagado (€/año)</label><input type="number" id="r_alq" placeholder="Deducción por vivienda"></div>
+            </div>
+            <button class="btn-p" style="background:#059669" onclick="calcRenta()">SIMULAR DECLARACIÓN</button>
+        </div>
+
+        <div id="m-finiquito" class="module" style="display:none">
+            <div class="form-grid">
+                <div class="field"><label>Sueldo Bruto Mensual</label><input type="number" id="f_mensual"></div>
+                <div class="field"><label>Antigüedad (Años)</label><input type="number" id="f_ant" step="0.1"></div>
+                <div class="field"><label>Vacaciones pendientes (días)</label><input type="number" id="f_vac" value="0"></div>
+                <div class="field"><label>Tipo de Despido</label>
+                    <select id="f_tipo">
+                        <option value="33">Improcedente (33 días)</option>
+                        <option value="20">Objetivo (20 días)</option>
+                        <option value="0">Baja Voluntaria</option>
                     </select>
                 </div>
             </div>
-            <button class="btn-calc" onclick="calcularFiniquito()">Calcular con Topes</button>
+            <button class="btn-p" style="background:#dc2626" onclick="calcFiniquito()">CALCULAR INDEMNIZACIÓN</button>
         </div>
+    </div>
 
-        <div id="results-dash" class="dashboard">
-            <div id="pdf-content">
-                <div style="margin-bottom: 15px; font-weight: bold; color: var(--primary);">REPORTE OFICIAL NOMINPRO</div>
-                <div class="stat-card">
-                    <div style="font-size: 0.9rem; font-weight: bold; color: var(--text-muted); text-transform: uppercase;" id="result-title">Sueldo Neto Anual</div>
-                    <div id="main-result" class="stat-val">0,00 €</div>
-                    <div id="secondary-result" style="margin-top: 5px; font-weight: bold; color: var(--text-main);"></div>
-                </div>
-                <div style="margin-top: 20px;">
-                    <div style="display:flex; justify-content: space-between; margin-bottom: 10px; border-bottom: 1px solid var(--border); padding-bottom: 5px;">
-                        <span>Impuestos (IRPF)</span> <span id="label-irpf" style="font-weight:700">0 €</span>
-                    </div>
-                    <div style="display:flex; justify-content: space-between; border-bottom: 1px solid var(--border); padding-bottom: 5px;">
-                        <span>Seguridad Social</span> <span id="label-ss" style="font-weight:700">0 €</span>
-                    </div>
-                </div>
-                <button class="btn-pdf" onclick="descargarPDF()" data-html2canvas-ignore>
-                    📄 Descargar Informe en PDF
-                </button>
+    <div class="result-panel">
+        <div class="card" id="pdf-content">
+            <div class="badge-eco">REPORTE PROFESIONAL 2026</div>
+            <div id="res-label" style="font-weight:700; color:var(--m)">TOTAL NETO ANUAL</div>
+            <div id="res-val" class="res-big">0,00 €</div>
+            <div id="res-sub" style="font-weight:700; margin-bottom: 1.5rem;"></div>
+
+            <div class="item-row"><span>Hacienda (IRPF)</span><span id="res-irpf" style="font-weight:700">0 €</span></div>
+            <div class="item-row"><span>Seguridad Social</span><span id="res-ss" style="font-weight:700">0 €</span></div>
+            <div class="item-row" id="row-coste" style="color:var(--s)"><span>Coste Real Empresa</span><span id="res-coste">0 €</span></div>
+
+            <div style="margin-top: 2rem;">
+                <canvas id="ultraChart" height="200"></canvas>
             </div>
-            <div>
-                <div style="position: relative; height: 250px; width: 100%;">
-                    <canvas id="salaryChart"></canvas>
-                </div>
+
+            <div style="display: flex; gap: 10px; margin-top: 2rem;">
+                <button onclick="downloadPDF()" class="tab" style="background:var(--t); color:var(--c); flex:2">📥 Descargar PDF</button>
+                <button onclick="share()" class="tab" style="background:#25D366; color:white; flex:1">📱 WhatsApp</button>
             </div>
         </div>
     </div>
-</div>
-
-<div class="cookie-banner" id="cookieBanner">
-    <div style="font-size: 0.9rem;">
-        Usamos cookies para asegurar que te damos la mejor experiencia en nuestra web y mostrar anuncios relevantes (Google AdSense). Al continuar, aceptas nuestra política.
-    </div>
-    <button class="cookie-btn" onclick="aceptarCookies()">Aceptar y Cerrar</button>
 </div>
 
 <script>
-    // 1. SISTEMA DE MEMORIA (LocalStorage)
-    window.onload = function() {
-        if(localStorage.getItem('nominpro_bruto')) document.getElementById('bruto').value = localStorage.getItem('nominpro_bruto');
-        if(localStorage.getItem('nominpro_comunidad')) document.getElementById('comunidad').value = localStorage.getItem('nominpro_comunidad');
-        if(localStorage.getItem('nominpro_mensual')) document.getElementById('mensual').value = localStorage.getItem('nominpro_mensual');
-        if(localStorage.getItem('nominpro_theme')) document.documentElement.setAttribute('data-theme', localStorage.getItem('nominpro_theme'));
-        if(localStorage.getItem('nominpro_cookies') === 'aceptadas') document.getElementById('cookieBanner').style.display = 'none';
-    };
+    let chart = null;
 
-    function saveData() {
-        localStorage.setItem('nominpro_bruto', document.getElementById('bruto').value);
-        localStorage.setItem('nominpro_comunidad', document.getElementById('comunidad').value);
-        localStorage.setItem('nominpro_mensual', document.getElementById('mensual').value);
-    }
-
-    // 2. MODO OSCURO
     function toggleTheme() {
-        const currentTheme = document.documentElement.getAttribute('data-theme');
-        const newTheme = currentTheme === 'light' ? 'dark' : 'light';
-        document.documentElement.setAttribute('data-theme', newTheme);
-        localStorage.setItem('nominpro_theme', newTheme);
-        if(myChart) { myChart.options.plugins.legend.labels.color = newTheme === 'dark' ? '#fff' : '#000'; myChart.update(); }
+        const theme = document.documentElement.getAttribute('data-theme') === 'light' ? 'dark' : 'light';
+        document.documentElement.setAttribute('data-theme', theme);
     }
 
-    // 3. AVISO DE COOKIES
-    function aceptarCookies() {
-        localStorage.setItem('nominpro_cookies', 'aceptadas');
-        document.getElementById('cookieBanner').style.display = 'none';
-    }
-
-    // 4. PESTAÑAS Y GRÁFICOS
-    let myChart = null;
-    function switchTab(tab, btn) {
-        document.getElementById('section-sueldo').style.display = tab === 'sueldo' ? 'block' : 'none';
-        document.getElementById('section-finiquito').style.display = tab === 'finiquito' ? 'block' : 'none';
-        document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+    function setMode(mode, btn) {
+        document.querySelectorAll('.module').forEach(m => m.style.display = 'none');
+        document.getElementById('m-' + mode).style.display = 'block';
+        document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
         btn.classList.add('active');
-        document.getElementById('results-dash').style.display = 'none';
     }
 
-    function updateChart(data1, data2, data3, label1, label2, label3) {
-        const ctx = document.getElementById('salaryChart').getContext('2d');
-        if (myChart) myChart.destroy();
-        const isDark = document.documentElement.getAttribute('data-theme') === 'dark';
-        
-        myChart = new Chart(ctx, {
+    function getIRPF(base) {
+        // Tramos IRPF 2026 Actualizados
+        if(base <= 12450) return base * 0.19;
+        if(base <= 20200) return 2365 + (base - 12450) * 0.24;
+        if(base <= 35200) return 4225 + (base - 20200) * 0.30;
+        if(base <= 60000) return 8725 + (base - 35200) * 0.37;
+        if(base <= 300000) return 17911 + (base - 60000) * 0.45;
+        return 125911 + (base - 300000) * 0.47;
+    }
+
+    function updateUI(neto, irpf, ss, label, sub, coste = 0) {
+        document.getElementById('res-val').innerText = neto.toLocaleString('es-ES') + " €";
+        document.getElementById('res-label').innerText = label;
+        document.getElementById('res-sub').innerText = sub;
+        document.getElementById('res-irpf').innerText = irpf.toLocaleString('es-ES') + " €";
+        document.getElementById('res-ss').innerText = ss.toLocaleString('es-ES') + " €";
+        document.getElementById('res-coste').innerText = (coste || 0).toLocaleString('es-ES') + " €";
+
+        const ctx = document.getElementById('ultraChart').getContext('2d');
+        if(chart) chart.destroy();
+        chart = new Chart(ctx, {
             type: 'doughnut',
             data: {
-                labels: [label1, label2, label3],
-                datasets: [{
-                    data: [data1, data2, data3],
-                    backgroundColor: ['#10b981', '#ef4444', '#6366f1'],
-                    borderWidth: 2,
-                    borderColor: isDark ? '#1f2937' : '#ffffff'
-                }]
+                labels: ['Neto', 'IRPF', 'Seg. Social'],
+                datasets: [{ data: [neto, irpf, ss], backgroundColor: ['#4338ca', '#f59e0b', '#10b981'], borderWidth: 0 }]
             },
-            options: { cutout: '65%', plugins: { legend: { position: 'bottom', labels: { color: isDark ? '#fff' : '#000' } } } }
+            options: { cutout: '75%', plugins: { legend: { position: 'bottom' } } }
         });
     }
 
-    // 5. LÓGICA DE SUELDO 2026
-    function calcularSueldo() {
-        const bruto = parseFloat(document.getElementById('bruto').value);
-        const comunidad = document.getElementById('comunidad').value;
-        const pagas = parseInt(document.getElementById('pagas').value);
+    function calcNeto() {
+        const bruto = parseFloat(document.getElementById('n_bruto').value);
+        if(!bruto) return;
         
-        if (!bruto) return;
+        const hijos = parseInt(document.getElementById('n_hijos').value);
+        const disc = parseInt(document.getElementById('n_disc').value);
+        const mov = parseInt(document.getElementById('n_mov').value);
+        const ccaa = document.getElementById('n_ccaa').value;
 
+        // 1. Seguridad Social
         const ss = bruto * 0.0645;
-        let base = bruto - ss - 2000 - 5550; // Mínimo
-        if (base < 0) base = 0;
-
-        let tasaMod = comunidad === 'madrid' ? -0.01 : (comunidad === 'cataluna' ? 0.01 : 0);
-        let irpf = base * (0.19 + tasaMod); 
-        if (base > 12450) irpf = (12450 * (0.19 + tasaMod)) + ((base - 12450) * 0.24);
-        if (base > 20200) irpf = (12450 * (0.19 + tasaMod)) + (7750 * 0.24) + ((base - 20200) * 0.30);
-        if (irpf < 0) irpf = 0;
-
-        const netoAnual = bruto - ss - irpf;
         
-        document.getElementById('result-title').innerText = "Sueldo Neto Anual";
-        document.getElementById('main-result').innerText = netoAnual.toLocaleString('es-ES', {minimumFractionDigits: 2, maximumFractionDigits: 2}) + " €";
-        document.getElementById('secondary-result').innerText = (netoAnual/pagas).toLocaleString('es-ES', {minimumFractionDigits: 2, maximumFractionDigits: 2}) + " € / mes (" + pagas + " pagas)";
-        document.getElementById('label-irpf').innerText = irpf.toLocaleString('es-ES', {maximumFractionDigits: 0}) + " €";
-        document.getElementById('label-ss').innerText = ss.toLocaleString('es-ES', {maximumFractionDigits: 0}) + " €";
-        
-        document.getElementById('results-dash').style.display = 'grid';
-        updateChart(netoAnual, irpf, ss, 'Neto', 'IRPF', 'SS');
+        // 2. Base Imponible con deducciones profesionales
+        let deducciones = 2000; // Gastos generales
+        if(mov === 1) deducciones += 2000; // Extra movilidad
+        if(disc === 33) deducciones += 3500;
+        if(disc === 65) deducciones += 12000;
+
+        let minimoPersonal = 5550 + (hijos * 1200);
+        let base = Math.max(0, bruto - ss - deducciones - minimoPersonal);
+
+        // 3. IRPF con ajuste autonómico
+        let tasaCCAA = ccaa === 'madrid' ? 0.95 : (ccaa === 'cataluna' ? 1.05 : 1);
+        const irpf = getIRPF(base) * tasaCCAA;
+
+        const neto = bruto - ss - irpf;
+        const costeEmpresa = bruto + (bruto * 0.31); // 31% SS a cargo empresa aprox
+
+        updateUI(neto, irpf, ss, "SUELDO NETO ANUAL", (neto/document.getElementById('n_pagas').value).toFixed(2) + " € al mes", costeEmpresa);
     }
 
-    // 6. LÓGICA DE FINIQUITO CON TOPES LEGALES
-    function calcularFiniquito() {
-        const mensual = parseFloat(document.getElementById('mensual').value);
-        const ant = parseFloat(document.getElementById('antiguedad').value);
-        const diasPorAno = parseInt(document.getElementById('motivo').value);
+    function calcFiniquito() {
+        const mensual = parseFloat(document.getElementById('f_mensual').value);
+        const ant = parseFloat(document.getElementById('f_ant').value);
+        const tipo = parseInt(document.getElementById('f_tipo').value);
+        const vacas = parseInt(document.getElementById('f_vac').value);
 
-        if (!mensual || !ant) return;
-
-        const salarioDia = (mensual * 12) / 365;
-        let indemnizacion = salarioDia * diasPorAno * ant;
-
-        // APLICACIÓN DE TOPES LEGALES EN ESPAÑA
-        let topeMensualidades = diasPorAno === 33 ? 24 : (diasPorAno === 20 ? 12 : 0);
-        let topeEuros = mensual * topeMensualidades;
-
-        if (indemnizacion > topeEuros) indemnizacion = topeEuros;
-
-        document.getElementById('result-title').innerText = "Indemnización Total Estimada";
-        document.getElementById('main-result').innerText = indemnizacion.toLocaleString('es-ES', {minimumFractionDigits: 2, maximumFractionDigits: 2}) + " €";
+        if(!mensual) return;
         
-        let avisoTope = indemnizacion === topeEuros && topeEuros > 0 ? " (Tope legal aplicado)" : "";
-        document.getElementById('secondary-result').innerText = "Basado en " + diasPorAno + " días/año" + avisoTope;
-        document.getElementById('label-irpf').innerText = "Exento de IRPF";
-        document.getElementById('label-ss').innerText = "-";
+        const diario = (mensual * 12) / 365;
+        let indemnizacion = diario * tipo * ant;
         
-        document.getElementById('results-dash').style.display = 'grid';
-        updateChart(indemnizacion, 0, 0, 'Indemnización', '', '');
+        // Topes legales
+        const tope = mensual * (tipo === 33 ? 24 : 12);
+        if(indemnizacion > tope) indemnizacion = tope;
+
+        const pagoVacas = diario * vacas;
+        const total = indemnizacion + pagoVacas;
+
+        updateUI(total, 0, 0, "FINIQUITO TOTAL", "Indemnización: " + indemnizacion.toFixed(2) + "€", mensual * ant);
     }
 
-    // 7. GENERACIÓN DE PDF REAL
-    function descargarPDF() {
-        const element = document.getElementById('pdf-content');
-        const opt = {
-            margin:       1,
-            filename:     'Reporte_NominPro_2026.pdf',
-            image:        { type: 'jpeg', quality: 0.98 },
-            html2canvas:  { scale: 2 },
-            jsPDF:        { unit: 'in', format: 'letter', orientation: 'portrait' }
-        };
-        html2pdf().set(opt).from(element).save();
+    function calcRenta() {
+        const ingresos = parseFloat(document.getElementById('r_bruto').value);
+        const pagado = parseFloat(document.getElementById('r_ret').value);
+        if(!ingresos) return;
+
+        const ss = ingresos * 0.0645;
+        const base = Math.max(0, ingresos - ss - 2000 - 5550);
+        const cuota = getIRPF(base);
+        const resultado = cuota - pagado;
+
+        const label = resultado > 0 ? "A PAGAR A HACIENDA" : "A DEVOLVER (INGRESAR)";
+        updateUI(Math.abs(resultado), cuota, pagado, label, resultado > 0 ? "Prepara la cartera 💸" : "¡Hacienda te paga! 🥳");
+    }
+
+    function downloadPDF() {
+        const el = document.getElementById('pdf-content');
+        html2pdf().from(el).set({ margin: 1, filename: 'NominPro_Report.pdf' }).save();
+    }
+
+    function share() {
+        const text = "He calculado mi sueldo real en NominPro Ultra. ¡Es brutal! Pruébalo tú también.";
+        window.open(`https://wa.me/?text=${encodeURIComponent(text)}`);
     }
 </script>
+
 </body>
 </html>
