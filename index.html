@@ -1,20 +1,115 @@
-<section style="max-width: 800px; margin: 40px auto; line-height: 1.6; color: #444; padding: 20px;">
-    <h2>¿Cómo calcular tu sueldo neto en España en 2024?</h2>
-    <p>Para entender cuánto dinero llegará realmente a tu cuenta bancaria, es fundamental distinguir entre el <b>sueldo bruto</b> (el total que paga la empresa) y el <b>sueldo neto</b> (lo que recibes tras impuestos).</p>
-    
-    <h3>1. Las cotizaciones a la Seguridad Social</h3>
-    <p>En España, de forma general, un trabajador por cuenta ajena aporta un <b>6,45%</b> (aproximadamente) de su base de cotización. Esto cubre contingencias comunes, desempleo y formación profesional.</p>
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculadora de Sueldo Neto y Finiquito 2024 | España</title>
+    <style>
+        :root { --primary: #00c853; --dark: #1e293b; --bg: #f1f5f9; }
+        body { font-family: 'Segoe UI', system-ui, sans-serif; background: var(--bg); color: var(--dark); margin: 0; padding: 20px; line-height: 1.6; }
+        .container { max-width: 600px; margin: 20px auto; background: white; padding: 30px; border-radius: 20px; box-shadow: 0 10px 25px rgba(0,0,0,0.05); }
+        .tabs { display: flex; gap: 10px; margin-bottom: 25px; background: #eee; padding: 5px; border-radius: 12px; }
+        .tab-btn { flex: 1; padding: 10px; border: none; border-radius: 8px; cursor: pointer; font-weight: bold; background: none; transition: 0.3s; }
+        .tab-btn.active { background: white; box-shadow: 0 4px 10px rgba(0,0,0,0.1); color: var(--primary); }
+        .tool-content { display: none; }
+        .tool-content.active { display: block; }
+        input, select { width: 100%; padding: 12px; margin: 10px 0 20px; border: 1px solid #ddd; border-radius: 8px; box-sizing: border-box; }
+        button.calc-btn { width: 100%; background: var(--primary); color: white; border: none; padding: 15px; border-radius: 8px; font-size: 1.1rem; font-weight: bold; cursor: pointer; }
+        .result-box { margin-top: 25px; padding: 20px; background: #f0fff4; border-radius: 12px; border: 1px solid #c6f6d5; display: none; }
+        .res-row { display: flex; justify-content: space-between; margin-bottom: 8px; border-bottom: 1px solid #e2e8f0; }
+        .seo-content { max-width: 800px; margin: 50px auto; padding: 20px; background: white; border-radius: 20px; font-size: 0.95rem; }
+    </style>
+</head>
+<body>
 
-    <h3>2. El IRPF: Un impuesto progresivo</h3>
-    <p>El Impuesto sobre la Renta de las Personas Físicas no es igual para todos. Se divide en tramos:</p>
-    <ul>
-        <li>Hasta 12.450€: 19%</li>
-        <li>De 12.450€ a 20.200€: 24%</li>
-        <li>De 20.200€ a 35.200€: 30%</li>
-        <li>De 35.200€ a 60.000€: 37%</li>
-    </ul>
+<div class="container">
+    <div class="tabs">
+        <button class="tab-btn active" onclick="showTab('sueldo')">Sueldo Neto</button>
+        <button class="tab-btn" onclick="showTab('finiquito')">Finiquito</button>
+    </div>
 
-    <h3>Preguntas Frecuentes (FAQ)</h3>
-    <p><b>¿Qué es mejor, 12 o 14 pagas?</b><br>
-    El sueldo neto anual es exactamente el mismo. La diferencia es la liquidez: con 14 pagas cobras menos al mes pero recibes un extra en junio y diciembre.</p>
-</section>
+    <div id="sueldo" class="tool-content active">
+        <h1>Sueldo Neto Anual</h1>
+        <label>Sueldo Bruto Anual (€)</label>
+        <input type="number" id="brutoAnual" placeholder="Ej: 25000">
+        <label>Pagas</label>
+        <select id="pagas">
+            <option value="12">12 pagas</option>
+            <option value="14">14 pagas</option>
+        </select>
+        <button class="calc-btn" onclick="calcSueldo()">Calcular Mi Sueldo</button>
+        <div id="resSueldo" class="result-box"></div>
+    </div>
+
+    <div id="finiquito" class="tool-content">
+        <h1>Calculadora Finiquito</h1>
+        <label>Sueldo Bruto Mensual (€)</label>
+        <input type="number" id="brutoMensual" placeholder="Ej: 1800">
+        <label>Años trabajados</label>
+        <input type="number" id="años" placeholder="Ej: 2">
+        <label>Tipo de despido</label>
+        <select id="tipoDespido">
+            <option value="20">Despido Objetivo (20 días/año)</option>
+            <option value="33">Despido Improcedente (33 días/año)</option>
+        </select>
+        <button class="calc-btn" onclick="calcFiniquito()">Calcular Finiquito</button>
+        <div id="resFiniquito" class="result-box"></div>
+    </div>
+</div>
+
+<div class="seo-content">
+    <h2>Información Útil sobre Salarios y Despidos en España</h2>
+    <p>Calcular correctamente tu <b>finiquito</b> o tu <b>sueldo neto</b> es vital para tu salud financiera. En España, las indemnizaciones por despido han cambiado tras las últimas reformas laborales.</p>
+    <h3>¿Cómo funciona la indemnización por despido?</h3>
+    <p>Si sufres un despido objetivo, te corresponden 20 días por año trabajado. Si el juez o la empresa admiten que es improcedente, sube a 33 días por año (para contratos posteriores a 2012).</p>
+</div>
+
+<script>
+    function showTab(tabId) {
+        document.querySelectorAll('.tool-content').forEach(c => c.classList.remove('active'));
+        document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+        document.getElementById(tabId).classList.add('active');
+        event.currentTarget.classList.add('active');
+    }
+
+    function calcSueldo() {
+        let bruto = parseFloat(document.getElementById('brutoAnual').value);
+        let pagas = parseInt(document.getElementById('pagas').value);
+        if(!bruto) return;
+        
+        let ss = bruto * 0.0635;
+        let base = bruto - ss - 5550;
+        let irpf = 0;
+        if(base > 0) {
+            if(base < 12450) irpf = base * 0.19;
+            else if(base < 20200) irpf = 2365 + (base-12450)*0.24;
+            else if(base < 35200) irpf = 4225 + (base-20200)*0.30;
+            else irpf = 8725 + (base-35200)*0.37;
+        }
+        let netoAnual = bruto - ss - irpf;
+        document.getElementById('resSueldo').style.display = 'block';
+        document.getElementById('resSueldo').innerHTML = `
+            <div class="res-row"><span>Neto Anual:</span> <b>${netoAnual.toFixed(2)}€</b></div>
+            <div class="res-row"><span>Neto Mensual:</span> <b>${(netoAnual/pagas).toFixed(2)}€</b></div>
+        `;
+    }
+
+    function calcFiniquito() {
+        let mensual = parseFloat(document.getElementById('brutoMensual').value);
+        let tiempo = parseFloat(document.getElementById('años').value);
+        let diasDia = parseInt(document.getElementById('tipoDespido').value);
+        if(!mensual || !tiempo) return;
+
+        let salarioDia = (mensual * 12) / 365;
+        let totalIndemnizacion = salarioDia * diasDia * tiempo;
+        
+        document.getElementById('resFiniquito').style.display = 'block';
+        document.getElementById('resFiniquito').innerHTML = `
+            <div class="res-row"><span>Indemnización total:</span> <b>${totalIndemnizacion.toFixed(2)}€</b></div>
+            <p><small>*Nota: Este cálculo no incluye vacaciones no disfrutadas ni parte proporcional de pagas extras.</small></p>
+        `;
+    }
+</script>
+
+</body>
+</html>
