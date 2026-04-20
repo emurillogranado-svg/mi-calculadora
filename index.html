@@ -5,114 +5,144 @@
     
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>NominPro.es | Calculadora de Sueldo y Renta 2026</title>
-    <meta name="description" content="Calcula tu sueldo neto, finiquito y declaración de la renta de forma fácil y gratuita.">
+    <title>NominPro.es | Calculadora de Sueldo Neto y Renta 2026</title>
+    <meta name="description" content="Calcula tu sueldo neto mensual, IRPF y ahorra en tus facturas. La herramienta definitiva para trabajadores en España.">
+    
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;700;900&display=swap" rel="stylesheet">
     <style>
-        :root { --blue: #0052ff; --green: #00c853; --red: #ff3d00; --text: #1a1a1a; --light: #f4f7ff; }
+        :root { --blue: #0052ff; --green: #00c853; --red: #ff3d00; --text: #1a1a1a; --light: #f4f7ff; --gold: #ffd700; }
         * { box-sizing: border-box; font-family: 'Outfit', sans-serif; scroll-behavior: smooth; }
-        body { background-color: var(--light); color: var(--text); margin: 0; }
+        body { background-color: var(--light); color: var(--text); margin: 0; line-height: 1.6; }
+        
         header { background: white; padding: 15px 5%; display: flex; justify-content: space-between; align-items: center; position: sticky; top: 0; z-index: 1000; box-shadow: 0 2px 10px rgba(0,0,0,0.05); }
-        .logo { font-size: 22px; font-weight: 900; color: var(--blue); text-decoration: none; }
-        nav a { text-decoration: none; color: var(--text); font-weight: 600; margin-left: 20px; font-size: 14px; }
-        .container { max-width: 800px; margin: 40px auto; background: white; border-radius: 30px; padding: 30px; box-shadow: 0 20px 40px rgba(0,0,0,0.05); }
+        .logo { font-size: 24px; font-weight: 900; color: var(--blue); text-decoration: none; letter-spacing: -1px; }
+        .logo span { color: #555; font-weight: 400; }
+
+        .container { max-width: 850px; margin: 40px auto; background: white; border-radius: 30px; padding: 35px; box-shadow: 0 20px 40px rgba(0,0,0,0.05); }
+        
         .view { display: none; animation: fadeIn 0.4s; }
         .view.active { display: block; }
-        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
-        .menu-card { background: var(--light); padding: 25px; border-radius: 20px; margin-bottom: 15px; cursor: pointer; text-align: center; border: 2px solid transparent; transition: 0.3s; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+
+        /* TARJETAS DE MENÚ */
+        .menu-grid { display: grid; grid-template-columns: 1fr; gap: 15px; margin: 25px 0; }
+        .menu-card { background: var(--light); padding: 25px; border-radius: 20px; cursor: pointer; text-align: center; border: 2px solid transparent; transition: 0.3s; }
         .menu-card:hover { border-color: var(--blue); background: white; transform: translateY(-5px); }
-        .input-group { margin-bottom: 20px; text-align: left; }
-        label { display: block; margin-bottom: 8px; font-weight: 700; }
-        input { width: 100%; padding: 15px; border: 2px solid #eee; border-radius: 12px; font-size: 16px; outline: none; }
-        input:focus { border-color: var(--blue); }
-        .btn-next { width: 100%; background: var(--blue); color: white; padding: 18px; border-radius: 15px; border: none; font-size: 18px; font-weight: 700; cursor: pointer; transition: 0.3s; }
-        .btn-next:hover { background: #003ccb; }
-        .revolut-promo { background: #000; color: white; padding: 30px; border-radius: 25px; margin-top: 30px; text-align: center; }
-        .btn-revolut { background: white; color: black; padding: 15px 30px; border-radius: 50px; text-decoration: none; font-weight: 800; display: inline-block; margin-top: 15px; transition: 0.3s; }
-        .btn-revolut:hover { transform: scale(1.05); }
-        .blog-section { margin-top: 60px; display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px; }
-        .article { padding: 20px; background: white; border: 1px solid #eee; border-radius: 20px; }
-        footer { background: #1a1a1a; color: white; padding: 40px 5%; text-align: center; margin-top: 60px; }
-        footer a { color: #666; text-decoration: none; margin: 0 10px; font-size: 13px; }
-        .ad-space { background: #f9f9f9; border: 1px dashed #ddd; margin: 20px 0; min-height: 100px; display: flex; align-items: center; justify-content: center; font-size: 12px; color: #aaa; border-radius: 15px; }
+        .menu-card h3 { margin: 0; color: var(--blue); }
+
+        /* SECCIÓN DE OFERTAS (AMAZON / AWIN) */
+        .deals-section { background: #fffbe6; border: 1px solid #ffe58f; padding: 20px; border-radius: 20px; margin: 20px 0; }
+        .deals-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px; margin-top: 15px; }
+        .deal-item { background: white; padding: 15px; border-radius: 15px; text-align: center; border: 1px solid #eee; }
+        .deal-item a { color: var(--blue); font-weight: 700; text-decoration: none; font-size: 14px; }
+        .deal-item p { margin: 5px 0; font-size: 13px; color: #666; }
+
+        /* FORMULARIO */
+        .input-group { margin-bottom: 25px; }
+        label { display: block; margin-bottom: 10px; font-weight: 700; font-size: 18px; }
+        input { width: 100%; padding: 18px; border: 2px solid #eee; border-radius: 15px; font-size: 18px; outline: none; transition: 0.3s; }
+        input:focus { border-color: var(--blue); box-shadow: 0 0 15px rgba(0,82,255,0.1); }
+        .btn-main { width: 100%; background: var(--blue); color: white; padding: 20px; border-radius: 18px; border: none; font-size: 18px; font-weight: 800; cursor: pointer; transition: 0.3s; }
+        .btn-main:hover { background: #003ccb; transform: scale(1.02); }
+
+        /* RESULTADOS */
+        .result-box { text-align:center; padding:50px 20px; background: linear-gradient(135deg, var(--blue), #00a2ff); color:white; border-radius:25px; margin-bottom: 30px; }
+        .result-box h2 { font-size: 55px; margin: 10px 0; }
+
+        /* PROMO REVOLUT */
+        .revolut-banner { background: #000; color: white; padding: 35px; border-radius: 25px; text-align: center; margin-top: 20px; }
+        .btn-revolut { background: white; color: black; padding: 15px 35px; border-radius: 50px; text-decoration: none; font-weight: 800; display: inline-block; margin-top: 20px; }
+
+        /* PUBLICIDAD */
+        .ad-placeholder { background: #fafafa; border: 1px dashed #ccc; margin: 20px 0; min-height: 100px; display: flex; align-items: center; justify-content: center; color: #999; font-size: 12px; border-radius: 15px; }
+
+        footer { background: #1a1a1a; color: white; padding: 50px 5%; text-align: center; margin-top: 60px; }
+        footer a { color: #888; text-decoration: none; margin: 0 10px; font-size: 13px; }
     </style>
 </head>
 <body>
 
 <header>
     <a href="#" class="logo" onclick="showView('home')">NOMINPRO<span>.es</span></a>
-    <nav>
-        <a href="#blog">Blog</a>
-        <a href="#" onclick="showView('renta')">Renta 2026</a>
+    <nav style="font-size: 14px; font-weight: 700;">
+        <a href="#ahorro" style="text-decoration:none; color:var(--text);">Ahorro</a>
     </nav>
 </header>
 
 <div class="container">
-    <div class="ad-space">Anuncio NominPro</div>
+    
+    <div class="ad-placeholder">Anuncio de Google AdSense</div>
 
     <div id="view-home" class="view active">
-        <h1 style="text-align:center; font-size: 32px;">Calculadora Financiera 2026</h1>
-        <p style="text-align:center; color: #666; margin-bottom: 30px;">Selecciona qué quieres calcular hoy:</p>
-        <div class="menu-card" onclick="showView('nomina')"><h3>💰 Mi Sueldo Neto Mensual</h3></div>
-        <div class="menu-card" onclick="showView('renta')"><h3>📅 Declaración de la Renta</h3></div>
-        <div class="menu-card" onclick="showView('finiquito')"><h3>⚖️ Finiquito por Despido</h3></div>
+        <h1 style="text-align:center; font-size: 36px; letter-spacing: -1px;">Controla tu dinero en 2026</h1>
+        <p style="text-align:center; color: #666; margin-bottom: 35px;">Calculadoras gratuitas y consejos de ahorro real.</p>
+        
+        <div class="menu-grid">
+            <div class="menu-card" onclick="showView('nomina')">
+                <h3>💰 Calculadora de Sueldo Neto</h3>
+                <p style="margin:5px 0 0; font-size:14px; color:#777;">Descubre cuánto te queda limpio al mes</p>
+            </div>
+            <div class="menu-card" onclick="alert('Próximamente: Calculadora Renta 2026')">
+                <h3>📅 Simulador Renta 2026</h3>
+                <p style="margin:5px 0 0; font-size:14px; color:#777;">¿Te saldrá a devolver o a pagar?</p>
+            </div>
+        </div>
+
+        <div id="ahorro" class="deals-section">
+            <h3 style="margin-top:0; color:#856404;">🔥 Ofertas de Ahorro Inteligente</h3>
+            <div class="deals-grid">
+                <div class="deal-item">
+                    <p><b>Ahorro en Facturas</b></p>
+                    <p>Compara tu seguro y paga hasta 200€ menos.</p>
+                    <a href="https://nominpro.es" id="awin-link">Ver Comparador →</a>
+                </div>
+                <div class="deal-item">
+                    <p><b>Lectura Financiera</b></p>
+                    <p>Libros recomendados para invertir mejor.</p>
+                    <a href="https://www.amazon.es/dp/8441436440?tag=emurillog10-21" target="_blank">Ver en Amazon →</a>
+                </div>
+            </div>
+        </div>
     </div>
 
     <div id="view-nomina" class="view">
-        <h2>Calcula tu Sueldo Neto</h2>
+        <h2 style="font-size: 28px;">Calcula tu Sueldo Neto</h2>
         <div class="input-group">
             <label>Sueldo Bruto Anual (€)</label>
-            <input type="number" id="n-bruto" placeholder="Ej: 24000">
+            <input type="number" id="n-bruto" placeholder="Ej: 28500">
         </div>
-        <button class="btn-next" onclick="calcNomina()">Calcular mi sueldo</button>
+        <button class="btn-main" onclick="calcNomina()">CALCULAR MI NETO</button>
+        <p style="font-size: 12px; color: #999; margin-top: 15px; text-align: center;">Cálculo estimado para España (12 pagas, soltero sin hijos).</p>
     </div>
 
     <div id="view-res" class="view">
-        <div style="text-align:center; padding:40px; background:var(--blue); color:white; border-radius:25px;">
-            <p id="res-title" style="margin:0; opacity: 0.8; font-weight: 700;">ESTE SERÁ TU SUELDO NETO</p>
-            <h2 id="res-main" style="font-size:50px; margin:15px 0;">0 €</h2>
-            <p id="res-detail" style="margin:0; font-size: 14px;"></p>
+        <div class="result-box">
+            <p style="margin:0; text-transform: uppercase; font-weight: 700; opacity: 0.9;">Tu sueldo neto mensual es:</p>
+            <h2 id="res-main">0 €</h2>
+            <p id="res-detail" style="margin:0; opacity: 0.8;"></p>
+        </div>
+
+        <div class="ad-placeholder">Publicidad Sugerida</div>
+
+        <div class="revolut-banner">
+            <h2 style="margin-top:0;">🚀 Haz que tu sueldo rinda más</h2>
+            <p>Gestiona tu nómina con Revolut y olvídate de las comisiones bancarias abusivas.</p>
+            <a href="https://revolut.com/referral/?referral-code=emurillogranado!APR1-26-AR-CH1H2-CRY&geo-redirect" target="_blank" class="btn-revolut">ABRIR MI CUENTA GRATIS</a>
         </div>
         
-        <div class="ad-space">Anuncio Recomendado</div>
-
-        <div class="revolut-promo">
-            <h3 style="margin-top:0;">🚀 ¡Haz que tu sueldo valga más!</h3>
-            <p>Únete a Revolut como yo. Gestiona tu nómina, ahorra en comisiones y disfruta de ventajas exclusivas.</p>
-            <a href="https://revolut.com/referral/?referral-code=emurillogranado!APR1-26-AR-CH1H2-CRY&geo-redirect" target="_blank" class="btn-revolut">Abrir mi cuenta Revolut</a>
-            <p style="font-size: 10px; margin-top: 15px; opacity: 0.6;">*Promoción sujeta a condiciones de Revolut.</p>
-        </div>
-        
-        <button class="btn-next" style="margin-top:20px; background:#f0f0f0; color:#666;" onclick="showView('home')">← Volver a calcular</button>
+        <button class="btn-main" style="margin-top:25px; background:#f0f0f0; color:#666;" onclick="showView('home')">← VOLVER AL INICIO</button>
     </div>
 
-    <hr style="margin: 50px 0; border: 0; border-top: 1px solid #eee;">
-
-    <h2 id="blog" style="text-align:center;">Consejos NominPro</h2>
-    <div class="blog-section">
-        <div class="article">
-            <h4>📊 IRPF 2026</h4>
-            <p>Asegúrate de que tu empresa te retiene lo correcto para evitar sustos con Hacienda.</p>
-        </div>
-        <div class="article">
-            <h4>🏠 Deducción Alquiler</h4>
-            <p>Recuerda revisar si en tu comunidad autónoma puedes desgravar el alquiler.</p>
-        </div>
-        <div class="article">
-            <h4>🏦 Ahorro Bancario</h4>
-            <p>Usar bancos digitales puede ahorrarte hasta 150€ al año en comisiones ocultas.</p>
-        </div>
-    </div>
 </div>
 
 <footer>
     <p><strong>NOMINPRO.es</strong></p>
-    <div style="margin-bottom: 20px;">
-        <a href="#" onclick="alert('Esta web es informativa. Los cálculos son estimaciones.')">Aviso Legal</a>
-        <a href="#" onclick="alert('No guardamos tus datos. Todo el cálculo es privado.')">Privacidad</a>
-        <a href="#" onclick="alert('Usamos cookies básicas para mejorar tu experiencia.')">Cookies</a>
+    <div style="margin: 20px 0;">
+        <a href="#">Aviso Legal</a>
+        <a href="#">Privacidad</a>
+        <a href="#">Cookies</a>
     </div>
-    <p style="font-size: 12px; color: #444;">© 2026 NominPro. Hecho con pasión por las finanzas claras.</p>
+    <p style="font-size: 11px; color: #555;">© 2026 NominPro. No somos asesores financieros oficiales. Los datos son estimaciones calculadas con algoritmos propios.</p>
 </footer>
 
 <script>
@@ -124,13 +154,19 @@
 
     function calcNomina() {
         const bruto = document.getElementById('n-bruto').value;
-        if(!bruto) return alert("Por favor, pon tu sueldo bruto");
-        const irpf = bruto * 0.15;
-        const seguridadSocial = bruto * 0.0635;
-        const netoAnual = bruto - irpf - seguridadSocial;
+        if(!bruto || bruto <= 0) return alert("Introduce un sueldo bruto válido");
+        
+        // Lógica de cálculo simplificada para España 2026
+        let irpf = 0.15;
+        if(bruto > 35000) irpf = 0.20;
+        if(bruto > 60000) irpf = 0.30;
+        
+        const ss = bruto * 0.0635; // Seguridad Social
+        const netoAnual = bruto - (bruto * irpf) - ss;
         const netoMes = netoAnual / 12;
-        document.getElementById('res-main').innerText = netoMes.toFixed(2) + " €/mes";
-        document.getElementById('res-detail').innerText = "Cálculo basado en 12 pagas anuales.";
+
+        document.getElementById('res-main').innerText = netoMes.toFixed(2) + " €";
+        document.getElementById('res-detail').innerText = "Retención IRPF estimada: " + (irpf * 100) + "%";
         showView('res');
     }
 </script>
