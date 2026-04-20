@@ -28,18 +28,17 @@
         .card:hover { border-color: var(--blue); transform: translateY(-5px); }
         .card span { font-size: 40px; display: block; margin-bottom: 10px; }
 
-        /* BOTÓN INFO */
+        /* BOTONES DE INFORMACIÓN */
         .btn-info { position: absolute; top: 10px; right: 10px; background: #eee; border: none; border-radius: 50%; width: 25px; height: 25px; cursor: pointer; font-weight: bold; color: #666; font-size: 12px; }
         .btn-info:hover { background: var(--blue); color: white; }
 
-        /* MODAL DE AYUDA */
+        /* MODAL INTERACTIVO */
         .modal { display: none; position: fixed; z-index: 2000; left: 0; top: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); backdrop-filter: blur(5px); }
-        .modal-content { background: white; margin: 10% auto; padding: 30px; border-radius: 25px; width: 90%; max-width: 500px; position: relative; }
+        .modal-content { background: white; margin: 10% auto; padding: 30px; border-radius: 25px; width: 90%; max-width: 550px; position: relative; max-height: 80vh; overflow-y: auto; }
         .close-modal { position: absolute; top: 15px; right: 20px; font-size: 25px; cursor: pointer; color: #999; }
 
-        .input-group { margin-bottom: 15px; }
         label { display: block; margin-bottom: 5px; font-weight: 700; font-size: 14px; }
-        input { width: 100%; padding: 12px; border: 2px solid #eee; border-radius: 12px; font-size: 16px; }
+        input { width: 100%; padding: 12px; border: 2px solid #eee; border-radius: 12px; font-size: 16px; margin-bottom: 15px; }
 
         .btn-main { width: 100%; background: var(--blue); color: white; padding: 18px; border-radius: 15px; border: none; font-size: 18px; font-weight: 800; cursor: pointer; margin-top: 10px; transition: 0.3s;}
         .btn-main:hover { background: #003ccb; }
@@ -47,28 +46,19 @@
         .result-box { text-align:center; padding:40px; background: var(--blue); color:white; border-radius:25px; margin-bottom: 25px; }
         .result-box h2 { font-size: 45px; margin: 10px 0; }
 
-        /* MONETIZACIÓN BANNERS */
+        /* PUBLICIDAD Y AFILIADOS */
+        .ad-slot { min-height: 100px; margin-bottom: 20px; text-align: center; background: #fafafa; border: 1px dashed #ccc; border-radius: 15px; display: flex; justify-content: center; align-items: center; }
         .promo-amazon { margin-top:30px; text-align:center; background:#fffbe6; padding:20px; border-radius:20px; border:1px solid #ffe58f; }
         .promo-revolut { background: #000; color: white; padding: 30px; border-radius: 25px; text-align: center; margin: 25px 0; }
         .btn-revolut { background: white; color: black; padding: 12px 30px; border-radius: 50px; text-decoration: none; font-weight: 800; display: inline-block; margin-top: 15px; }
         
         .footer-cta { background: #f4f7ff; border: 2px dashed var(--blue); padding: 25px; border-radius: 20px; text-align: center; margin-top: 20px; }
-        
-        /* ESTILO AD-SLOT CORREGIDO */
-        .ad-slot { 
-            min-height: 100px; 
-            margin-bottom: 20px; 
-            text-align: center; 
-            background: #fafafa; 
-            border: 1px dashed #ccc; 
-            border-radius: 15px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            overflow: hidden;
-        }
 
         footer { background: #1a1a1a; color: white; padding: 40px 5%; text-align: center; margin-top: 60px; }
+        footer a { color: #999; text-decoration: none; font-size: 12px; margin: 0 10px; }
+
+        /* BANNER COOKIES */
+        #cookie-banner { position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%); width: 90%; max-width: 500px; background: white; border-radius: 20px; box-shadow: 0 10px 40px rgba(0,0,0,0.3); padding: 20px; z-index: 9999; border: 2px solid var(--blue); text-align: center; display: none; }
     </style>
 </head>
 <body>
@@ -78,31 +68,28 @@
 </header>
 
 <div class="container">
-    
     <div class="ad-slot">
         <ins class="adsbygoogle"
              style="display:block"
              data-ad-client="ca-pub-3294385200593965"
-             data-ad-slot="TU_ID_DE_BLOQUE" 
+             data-ad-slot="TU_ID_DE_BLOQUE_AQUÍ"
              data-ad-format="auto"
              data-full-width-responsive="true"></ins>
-        <script>
-             (adsbygoogle = window.adsbygoogle || []).push({});
-        </script>
+        <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
     </div>
 
     <div id="view-home" class="view active">
         <h1 style="text-align:center;">Asistente Financiero 2026</h1>
-        <p style="text-align:center; color:#666; margin-top:-10px;">Calcula, aprende y ahorra en un solo lugar.</p>
+        <p style="text-align:center; color:#666; margin-top:-10px;">La herramienta de Eloy Murillo para tomar el control de tu dinero.</p>
         
         <div class="main-grid">
             <div class="card" onclick="showView('nomina')">
                 <button class="btn-info" onclick="event.stopPropagation(); showHelp('nomina')">i</button>
-                <span>👔</span><h3>Nómina</h3><p>Cálculo de neto</p>
+                <span>👔</span><h3>Nómina</h3><p>Sueldo neto real</p>
             </div>
             <div class="card" onclick="showView('autonomo')">
                 <button class="btn-info" onclick="event.stopPropagation(); showHelp('autonomo')">i</button>
-                <span>🚀</span><h3>Autónomo</h3><p>Beneficio real</p>
+                <span>🚀</span><h3>Autónomo</h3><p>¿Qué te queda?</p>
             </div>
             <div class="card" onclick="showView('vivienda')">
                 <button class="btn-info" onclick="event.stopPropagation(); showHelp('vivienda')">i</button>
@@ -110,16 +97,16 @@
             </div>
             <div class="card" onclick="showView('pension')">
                 <button class="btn-info" onclick="event.stopPropagation(); showHelp('pension')">i</button>
-                <span>👴</span><h3>Pensión</h3><p>Presente y Futuro</p>
+                <span>👴</span><h3>Pensión</h3><p>Tu jubilación</p>
             </div>
             <div class="card" onclick="showView('extra')">
                 <button class="btn-info" onclick="event.stopPropagation(); showHelp('extra')">i</button>
-                <span>📈</span><h3>Inversiones</h3><p>Renta y Apuestas</p>
+                <span>📈</span><h3>Ganancias</h3><p>Impuestos bolsa/apuestas</p>
             </div>
         </div>
 
         <div class="promo-amazon">
-            <p style="margin:0;">🔥 <b>Recomendación:</b> Muchos pagan de más por no conocer las reglas fiscales. <a href="https://www.amazon.es/dp/8441436440?tag=emurillog10-21" target="_blank" style="color:var(--blue); font-weight:700;">Lee este libro para ahorrar impuestos →</a></p>
+            <p style="margin:0;">🔥 <b>Truco Fiscal:</b> Aprende a desgravar y ahorrar miles de euros al año. <a href="https://www.amazon.es/dp/8441436440?tag=emurillog10-21" target="_blank" style="color:var(--blue); font-weight:700;">Ver libro recomendado →</a></p>
         </div>
     </div>
 
@@ -134,8 +121,8 @@
     <div id="view-form" class="view">
         <h2 id="form-title">Calculadora</h2>
         <div id="form-inputs"></div>
-        <button id="form-btn" class="btn-main">CALCULAR</button>
-        <button class="btn-main" style="margin-top:10px; background:#eee; color:#666;" onclick="showView('home')">Cancelar</button>
+        <button id="form-btn" class="btn-main">CALCULAR AHORA</button>
+        <button class="btn-main" style="margin-top:10px; background:#eee; color:#666;" onclick="showView('home')">Volver</button>
     </div>
 
     <div id="view-res" class="view">
@@ -146,36 +133,58 @@
         </div>
 
         <div class="promo-revolut">
-            <h3 style="margin-top:0;">💰 No dejes tu dinero parado</h3>
-            <p>Mueve tus ganancias a una cuenta con intereses y sin comisiones ocultas.</p>
-            <a href="https://revolut.com/referral/?referral-code=emurillogranado!APR1-26-AR-CH1H2-CRY&geo-redirect" target="_blank" class="btn-revolut">Descubrir Revolut Gratis</a>
+            <h3 style="margin-top:0;">💰 ¿Quieres que tu dinero crezca?</h3>
+            <p>Usa una cuenta con intereses diarios y sin comisiones de mantenimiento.</p>
+            <a href="https://revolut.com/referral/?referral-code=emurillogranado!APR1-26-AR-CH1H2-CRY&geo-redirect" target="_blank" class="btn-revolut">Abrir cuenta Revolut Gratis</a>
         </div>
 
         <div class="footer-cta">
-            <h3 style="margin-top:0;">☕ ¿Te ha sido útil NominPro?</h3>
-            <p style="font-size:14px; color:#555;">Mantenemos esta herramienta gratuita y sin suscripciones gracias a ti.</p>
-            <a href="https://www.paypal.me/EloyMurilloGranado" target="_blank" style="text-decoration:none; color:var(--paypal); font-weight:900; border:2px solid var(--paypal); padding:10px 20px; border-radius:50px; display:inline-block; margin-bottom: 10px;">Invitar a un café (PayPal)</a>
-            <p style="font-size:13px; margin-top:5px;">O si lo prefieres, vía Bizum al: <b>[TU NÚMERO AQUÍ]</b></p>
+            <h3 style="margin-top:0;">☕ ¿Te gusta NominPro?</h3>
+            <p style="font-size:14px; color:#555;">Ayúdanos a mantener la web sin publicidad invasiva ni registros.</p>
+            <a href="https://www.paypal.me/EloyMurilloGranado" target="_blank" style="text-decoration:none; color:var(--paypal); font-weight:900; border:2px solid var(--paypal); padding:10px 20px; border-radius:50px; display:inline-block; margin-bottom: 10px;">Donar por PayPal</a>
+            <p style="font-size:13px; margin-top:5px;">O vía Bizum al: <b>[PON TU TELÉFONO AQUÍ]</b></p>
         </div>
         
-        <button class="btn-main" style="margin-top:20px; background:#f0f0f0; color:#666;" onclick="showView('home')">← VOLVER AL INICIO</button>
+        <button class="btn-main" style="margin-top:20px; background:#f0f0f0; color:#666;" onclick="showView('home')">← REALIZAR OTRO CÁLCULO</button>
     </div>
 </div>
 
 <footer>
-    <p><strong>NOMINPRO.es</strong> | Tu aliado financiero</p>
-    <p style="font-size: 11px; color:#999;">Las estimaciones tienen carácter informativo.</p>
+    <p><strong>NOMINPRO.es</strong> | Creado por Eloy Murillo Granado</p>
+    <div>
+        <a href="#" onclick="showLegal('aviso')">Aviso Legal</a> | 
+        <a href="#" onclick="showLegal('privacidad')">Privacidad</a> | 
+        <a href="#" onclick="showLegal('cookies-info')">Cookies</a>
+    </div>
+    <p style="font-size: 11px; color:#555; margin-top:15px;">© 2026 NominPro. Todos los derechos reservados.</p>
 </footer>
 
+<div id="cookie-banner">
+    <p style="margin: 0 0 15px 0; font-size: 14px;">Hola, usamos cookies para que AdSense funcione y para medir el tráfico. ¿Nos das permiso? <a href="#" onclick="showLegal('cookies-info')" style="color:var(--blue)">Saber más</a>.</p>
+    <div style="display: flex; gap: 10px;">
+        <button onclick="acceptCookies()" style="flex: 1; background: var(--blue); color: white; border: none; padding: 10px; border-radius: 10px; font-weight: bold; cursor: pointer;">Aceptar</button>
+        <button onclick="closeCookies()" style="flex: 1; background: #eee; color: #666; border: none; padding: 10px; border-radius: 10px; cursor: pointer;">Rechazar</button>
+    </div>
+</div>
+
 <script>
+    // TEXTOS DE AYUDA FINANCIERA
     const helps = {
-        nomina: "<h3>Consejos para tu Nómina</h3><ul><li><b>IRPF:</b> Si te retienen poco ahora, te tocará pagar en la Renta.</li><li><b>Sueldo Neto:</b> Es lo que llega a tu banco tras descontar IRPF y Seguridad Social (aprox 6.35%).</li></ul>",
-        autonomo: "<h3>Guía para Autónomos</h3><ul><li><b>IVA vs IRPF:</b> Recuerda que el IVA no es tu dinero, es de Hacienda.</li><li><b>Gastos:</b> Guarda todas las facturas de suministros y material para pagar menos impuestos.</li></ul>",
-        vivienda: "<h3>Ahorro en Hipoteca</h3><ul><li><b>Euríbor:</b> Si es variable, revisa tu cuota cada 6 o 12 meses.</li><li><b>Amortización:</b> Si tienes ahorros, amortizar capital reduce los intereses totales.</li></ul>",
-        pension: "<h3>Tu Jubilación</h3><ul><li><b>Años:</b> Se necesitan 36 años y 6 meses cotizados para cobrar el 100%.</li><li><b>Base:</b> El cálculo se hace con las bases de los últimos 25 años.</li></ul>",
-        extra: "<h3>Inversiones y Apuestas</h3><ul><li><b>Tramos:</b> Las ganancias de bolsa pagan entre el 19% y el 28% dependiendo del importe.</li><li><b>Compensación:</b> Si pierdes dinero invertido, puedes restarlo de tus ganancias para pagar menos.</li></ul>"
+        nomina: "<h3>Cómo entender tu nómina</h3><p>El <b>Sueldo Bruto</b> es lo que paga la empresa, pero no lo que recibes. De ahí se resta el <b>IRPF</b> (impuesto personal) y la <b>Seguridad Social</b> (tu hucha para paro y salud).</p>",
+        autonomo: "<h3>El Neto del Autónomo</h3><p>Como autónomo, el dinero que facturas tiene 'trampa': debes restar la cuota de autónomos, tus gastos de actividad y guardar un 20% para el IRPF trimestral.</p>",
+        vivienda: "<h3>Consejo Hipotecario</h3><p>Si el Euríbor baja, tu cuota bajará en la siguiente revisión. Si tienes ahorros, <b>amortizar capital</b> al principio de la hipoteca es cuando más intereses ahorras.</p>",
+        pension: "<h3>Tu jubilación en España</h3><p>El sistema actual calcula tu pensión con los últimos 25 años cotizados. Cuantos más años trabajes por encima de los 15 mínimos, mayor porcentaje cobrarás.</p>",
+        extra: "<h3>Impuestos sobre inversiones</h3><p>Si ganas dinero con criptos, bolsa o apuestas, Hacienda se lleva entre el 19% y el 28% de los beneficios. <b>¡Ojo!</b> Si pierdes, puedes compensar esas pérdidas.</p>"
     };
 
+    // TEXTOS LEGALES (RELLENADOS CON TUS DATOS)
+    const legalTexts = {
+        aviso: `<h3>Aviso Legal</h3><p><b>Titular:</b> Eloy Murillo Granado</p><p><b>Web:</b> NominPro.es</p><p><b>Contacto:</b> emurillogranado@gmail.com</p><p>Esta web es una herramienta informativa. El titular no se hace responsable de decisiones financieras basadas en estas estimaciones.</p>`,
+        privacidad: `<h3>Política de Privacidad</h3><p>En NominPro.es respetamos tu privacidad. No recogemos nombres, ni emails ni datos bancarios. Los cálculos se realizan en tu propio dispositivo.</p><p>Usamos Google AdSense que puede recoger datos de navegación anónimos para mostrarte anuncios.</p>`,
+        'cookies-info': `<h3>Política de Cookies</h3><p>Usamos cookies técnicas para que la web funcione y cookies de Google para la publicidad. Puedes borrarlas en cualquier momento desde los ajustes de tu navegador.</p>`
+    };
+
+    // LÓGICA DE NAVEGACIÓN
     function showView(v) {
         document.querySelectorAll('.view').forEach(el => el.classList.remove('active'));
         if(v === 'home' || v === 'res') {
@@ -186,6 +195,7 @@
         window.scrollTo(0,0);
     }
 
+    // CONFIGURACIÓN DE CALCULADORAS
     function setupForm(type) {
         const fTitle = document.getElementById('form-title');
         const fInputs = document.getElementById('form-inputs');
@@ -193,56 +203,56 @@
         fInputs.innerHTML = '';
         
         if(type === 'nomina') {
-            fTitle.innerText = "Calculadora Nómina";
+            fTitle.innerText = "Calculadora de Nómina";
             fInputs.innerHTML = '<label>Sueldo Bruto Anual (€)</label><input type="number" id="val1" placeholder="Ej: 24000">';
             fBtn.onclick = () => {
                 const b = parseFloat(document.getElementById('val1').value) || 0;
-                const res = (b * 0.79) / 12;
-                updateRes("Sueldo Neto Mensual", res.toFixed(2) + " €", "Estimación para 12 pagas.");
+                updateRes("Sueldo Neto Mensual", ((b * 0.79) / 12).toFixed(2) + " €", "Calculado sobre 12 pagas con IRPF medio.");
             };
         } else if(type === 'vivienda') {
-            fTitle.innerText = "Simulador Hipoteca";
-            fInputs.innerHTML = '<label>Cantidad a pedir (€)</label><input type="number" id="val1"><label>Interés Anual (%)</label><input type="number" id="val2"><label>Años a pagar</label><input type="number" id="val3">';
+            fTitle.innerText = "Simulador de Hipoteca";
+            fInputs.innerHTML = '<label>Importe (€)</label><input type="number" id="val1"><label>Interés %</label><input type="number" id="val2"><label>Años</label><input type="number" id="val3">';
             fBtn.onclick = () => {
-                const p = parseFloat(document.getElementById('val1').value) || 0;
-                const r = parseFloat(document.getElementById('val2').value)/100/12 || 0;
-                const n = parseFloat(document.getElementById('val3').value)*12 || 0;
-                const c = r === 0 ? p/n : (p*r)/(1-Math.pow(1+r,-n));
-                updateRes("Tu Cuota Mensual", (c || 0).toFixed(2) + " €", "Sistema de amortización bancario.");
+                const p = parseFloat(document.getElementById('val1').value), r = (document.getElementById('val2').value/100/12), n = (document.getElementById('val3').value*12);
+                const c = (p*r)/(1-Math.pow(1+r,-n));
+                updateRes("Tu Cuota Mensual", c.toFixed(2) + " €", "Interés fijo durante todo el periodo.");
             };
         } else if(type === 'autonomo') {
-            fTitle.innerText = "Beneficio Autónomo";
-            fInputs.innerHTML = '<label>Facturación mensual (sin IVA)</label><input type="number" id="val1"><label>Gastos + Cuota de autónomos</label><input type="number" id="val2">';
+            fTitle.innerText = "Beneficio Real Autónomo";
+            fInputs.innerHTML = '<label>Facturación mensual (sin IVA)</label><input type="number" id="val1"><label>Gastos + Cuota</label><input type="number" id="val2">';
             fBtn.onclick = () => {
-                const f = parseFloat(document.getElementById('val1').value) || 0;
-                const g = parseFloat(document.getElementById('val2').value) || 0;
-                const res = (f - g) * 0.80;
-                updateRes("Beneficio Neto Limpio", res.toFixed(2) + " €", "Tras descontar gastos e IRPF estimado.");
+                const res = (document.getElementById('val1').value - document.getElementById('val2').value) * 0.80;
+                updateRes("Lo que te queda neto", res.toFixed(2) + " €", "Tras restar gastos e IRPF estimado.");
             };
         } else if(type === 'pension') {
-            fTitle.innerText = "Cálculo de Jubilación";
-            fInputs.innerHTML = '<label>Sueldo Bruto Actual Mensual</label><input type="number" id="val1"><label>Años Cotizados (estimados)</label><input type="number" id="val2">';
+            fTitle.innerText = "Estimación de Pensión";
+            fInputs.innerHTML = '<label>Sueldo Bruto Actual</label><input type="number" id="val1"><label>Años cotizados</label><input type="number" id="val2">';
             fBtn.onclick = () => {
-                const s = parseFloat(document.getElementById('val1').value) || 0;
-                const a = parseFloat(document.getElementById('val2').value) || 0;
-                const por = a < 15 ? 0 : (a > 36 ? 100 : (50 + (a-15)*2.5));
-                const res = (s * 0.85) * (Math.min(por, 100) / 100);
-                updateRes("Tu Pensión Estimada", res.toFixed(2) + " €", "Basado en tus años de cotización.");
+                const s = document.getElementById('val1').value, a = document.getElementById('val2').value;
+                const p = a < 15 ? 0 : (a > 36 ? 100 : 75);
+                updateRes("Pensión Mensual", (s * 0.80 * (p/100)).toFixed(2) + " €", "Cálculo aproximado según ley vigente.");
             };
         } else if(type === 'extra') {
-            fTitle.innerText = "Impuestos por Inversiones/Apuestas";
-            fInputs.innerHTML = '<label>Ganancia neta del año (€)</label><input type="number" id="val1">';
+            fTitle.innerText = "Impuestos sobre Ganancias";
+            fInputs.innerHTML = '<label>Beneficio Neto Obtenido (€)</label><input type="number" id="val1">';
             fBtn.onclick = () => {
-                const g = parseFloat(document.getElementById('val1').value) || 0;
-                const imp = g * 0.19; 
-                updateRes("A pagar a Hacienda", imp.toFixed(2) + " €", "Estimación al tipo impositivo base del 19%.");
+                const imp = document.getElementById('val1').value * 0.19;
+                updateRes("A pagar a Hacienda", imp.toFixed(2) + " €", "Basado en el tramo mínimo del 19%.");
             };
         }
         document.getElementById('view-form').classList.add('active');
     }
 
+    // MODALES
     function showHelp(key) {
+        document.getElementById('help-title').innerText = "Consejo NominPro";
         document.getElementById('help-body').innerHTML = helps[key];
+        document.getElementById('helpModal').style.display = 'block';
+    }
+
+    function showLegal(key) {
+        document.getElementById('help-title').innerText = "Información Legal";
+        document.getElementById('help-body').innerHTML = legalTexts[key];
         document.getElementById('helpModal').style.display = 'block';
     }
 
@@ -254,6 +264,16 @@
         document.getElementById('res-detail').innerText = detail;
         showView('res');
     }
+
+    // COOKIES
+    if (!localStorage.getItem('nominpro_gdpr')) {
+        setTimeout(() => document.getElementById('cookie-banner').style.display = 'block', 1500);
+    }
+    function acceptCookies() {
+        localStorage.setItem('nominpro_gdpr', 'true');
+        document.getElementById('cookie-banner').style.display = 'none';
+    }
+    function closeCookies() { document.getElementById('cookie-banner').style.display = 'none'; }
 </script>
 </body>
 </html>
