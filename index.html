@@ -53,7 +53,20 @@
         .btn-revolut { background: white; color: black; padding: 12px 30px; border-radius: 50px; text-decoration: none; font-weight: 800; display: inline-block; margin-top: 15px; }
         
         .footer-cta { background: #f4f7ff; border: 2px dashed var(--blue); padding: 25px; border-radius: 20px; text-align: center; margin-top: 20px; }
-        .ad-slot { background: #fafafa; border: 1px dashed #ccc; padding: 15px; text-align: center; color: #999; font-size: 12px; border-radius: 15px; margin-bottom: 20px; }
+        
+        /* ESTILO AD-SLOT CORREGIDO */
+        .ad-slot { 
+            min-height: 100px; 
+            margin-bottom: 20px; 
+            text-align: center; 
+            background: #fafafa; 
+            border: 1px dashed #ccc; 
+            border-radius: 15px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+        }
 
         footer { background: #1a1a1a; color: white; padding: 40px 5%; text-align: center; margin-top: 60px; }
     </style>
@@ -65,7 +78,18 @@
 </header>
 
 <div class="container">
-    <div class="ad-slot">Espacio Publicitario Google AdSense</div>
+    
+    <div class="ad-slot">
+        <ins class="adsbygoogle"
+             style="display:block"
+             data-ad-client="ca-pub-3294385200593965"
+             data-ad-slot="TU_ID_DE_BLOQUE" 
+             data-ad-format="auto"
+             data-full-width-responsive="true"></ins>
+        <script>
+             (adsbygoogle = window.adsbygoogle || []).push({});
+        </script>
+    </div>
 
     <div id="view-home" class="view active">
         <h1 style="text-align:center;">Asistente Financiero 2026</h1>
