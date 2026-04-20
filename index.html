@@ -1,136 +1,42 @@
-<!DOCTYPE html>
-<html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>NominPro.es | Calculadora de Sueldo y Renta 2026</title>
-    <meta name="description" content="Calcula tu sueldo neto, finiquito y declaración de la renta 2026 de forma fácil y gratuita.">
-    
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;700;900&display=swap" rel="stylesheet">
-
-    <style>
-        :root { --blue: #0052ff; --green: #00c853; --red: #ff3d00; --text: #1a1a1a; --light: #f4f7ff; }
-        * { box-sizing: border-box; font-family: 'Outfit', sans-serif; scroll-behavior: smooth; }
-        body { background-color: var(--light); color: var(--text); margin: 0; }
+<div id="blog" style="margin-top: 50px; padding: 20px; border-top: 2px solid #eee;">
+        <h2 style="color: var(--blue); text-align: center;">Guía Útil para Trabajadores 2026</h2>
         
-        /* HEADER PROFESIONAL */
-        header { background: white; padding: 15px 5%; display: flex; justify-content: space-between; align-items: center; position: sticky; top: 0; z-index: 1000; box-shadow: 0 2px 10px rgba(0,0,0,0.05); }
-        .logo { font-size: 22px; font-weight: 900; color: var(--blue); text-decoration: none; }
-        nav a { text-decoration: none; color: var(--text); font-weight: 600; margin-left: 20px; font-size: 14px; }
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px;">
+            <article style="padding: 15px; border: 1px solid #eee; border-radius: 15px;">
+                <h3>✅ Cómo entender tu Nómina en 2 minutos</h3>
+                <p>Mucha gente solo mira el neto, pero es vital revisar el devengado y las deducciones por contingencias comunes para tu futura jubilación.</p>
+            </article>
 
-        .container { max-width: 800px; margin: 40px auto; background: white; border-radius: 30px; padding: 30px; box-shadow: 0 20px 40px rgba(0,0,0,0.05); }
+            <article style="padding: 15px; border: 1px solid #eee; border-radius: 15px;">
+                <h3>📈 ¿Qué hacer si te sale a pagar la Renta?</h3>
+                <p>Si el resultado es positivo, Hacienda te pide dinero. Puedes fraccionar el pago en dos plazos (60% y 40%) sin intereses.</p>
+            </article>
 
-        /* ESPACIO PARA PUBLICIDAD */
-        .ad-space { background: #eee; margin: 20px 0; padding: 20px; text-align: center; border-radius: 15px; font-size: 12px; color: #999; }
+            <article style="padding: 15px; border: 1px solid #eee; border-radius: 15px;">
+                <h3>⚖️ Derechos ante un Despido Objetivo</h3>
+                <p>Recuerda que tienes derecho a 20 días por año trabajado y un preaviso de 15 días o su pago equivalente.</p>
+            </article>
 
-        /* SECCIONES */
-        .view { display: none; animation: fadeIn 0.4s; }
-        .view.active { display: block; }
-        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+            <article style="padding: 15px; border: 1px solid #eee; border-radius: 15px;">
+                <h3>💰 El truco de las Retenciones</h3>
+                <p>Ajustar tu IRPF mes a mes es como un ahorro forzado. Si te retienen de más, Hacienda te lo devolverá en junio.</p>
+            </article>
 
-        /* BOTÓN REVOLUT (DINERO) */
-        .revolut-promo { background: #000; color: white; padding: 20px; border-radius: 20px; margin-top: 20px; text-align: center; }
-        .btn-revolut { background: white; color: black; padding: 12px 25px; border-radius: 50px; text-decoration: none; font-weight: 800; display: inline-block; margin-top: 10px; }
-
-        /* BLOG */
-        .blog-section { margin-top: 50px; padding: 20px; }
-        .article-card { background: white; border-bottom: 1px solid #eee; padding: 20px 0; }
-        .article-card h3 { margin: 0 0 10px 0; color: var(--blue); }
-
-        footer { background: #1a1a1a; color: white; padding: 40px 5%; text-align: center; margin-top: 50px; }
-        footer a { color: #aaa; text-decoration: none; margin: 0 10px; font-size: 12px; }
-        
-        /* ESTILOS DE CALCULADORA (Iguales a los anteriores para mantener sencillez) */
-        .menu-card { background: var(--light); padding: 20px; border-radius: 20px; margin-bottom: 15px; cursor: pointer; text-align: center; }
-        .input-group { margin-bottom: 20px; }
-        input, select { width: 100%; padding: 15px; border: 2px solid #eee; border-radius: 12px; font-size: 16px; }
-        .btn-next { width: 100%; background: var(--blue); color: white; padding: 18px; border-radius: 15px; border: none; font-size: 18px; font-weight: 700; cursor: pointer; }
-    </style>
-</head>
-<body>
-
-<header>
-    <a href="#" class="logo" onclick="showView('home')">NOMINPRO<span>.es</span></a>
-    <nav>
-        <a href="#blog">Consejos</a>
-        <a href="#" onclick="showView('renta')">Renta</a>
-    </nav>
-</header>
-
-<div class="container">
-    <div class="ad-space">ESPACIO PARA GOOGLE ADSENSE</div>
-
-    <div id="view-home" class="view active">
-        <h1 style="text-align:center;">Hola, ¿qué calculamos?</h1>
-        <div class="menu-card" onclick="showView('nomina')"><h3>💰 Mi Sueldo Neto</h3></div>
-        <div class="menu-card" onclick="showView('renta')"><h3>📅 Hacienda (Renta)</h3></div>
-        <div class="menu-card" onclick="showView('finiquito')"><h3>⚖️ Mi Despido</h3></div>
+            <article style="padding: 15px; border: 1px solid #eee; border-radius: 15px;">
+                <h3>💳 ¿Por qué usar cuentas digitales como Revolut?</h3>
+                <p>Gestionar tu sueldo en cuentas sin comisiones de mantenimiento te permite ahorrar hasta 120€ al año en gastos bancarios.</p>
+            </article>
+        </div>
     </div>
 
-    <div id="view-nomina" class="view">
-        <h2>Calcula tu Sueldo Neto 2026</h2>
-        <div class="input-group">
-            <label>Sueldo Bruto Anual</label>
-            <input type="number" id="n-bruto" placeholder="Ej: 28000">
-        </div>
-        <button class="btn-next" onclick="calcNomina()">Calcular Sueldo</button>
-    </div>
-
-    <div id="view-res" class="view">
-        <div id="res-box" style="text-align:center; padding:30px; background:var(--blue); color:white; border-radius:20px;">
-            <small id="res-title">RESULTADO</small>
-            <h2 id="res-main" style="font-size:45px; margin:10px 0;">0 €</h2>
-        </div>
+    <footer style="background: #1a1a1a; color: white; padding: 50px 5%; text-align: center; margin-top: 50px;">
+        <p style="font-weight: 900; font-size: 20px;">NOMINPRO.es</p>
+        <p style="font-size: 14px; color: #aaa;">La herramienta gratuita para el control de tus finanzas laborales.</p>
         
-        <div class="revolut-promo">
-            <p>🚀 <b>Gana dinero por tu nómina:</b> Abre una cuenta en Revolut y recibe bonificaciones por usarla.</p>
-            <a href="TU_LINK_DE_REVOLUT_AQUI" class="btn-revolut">Abrir cuenta Revolut</a>
+        <div style="margin: 20px 0;">
+            <a href="#" onclick="alert('AVISO LEGAL: En cumplimiento de la LSSI, NominPro.es es una herramienta informativa. Los cálculos son estimaciones y no tienen valor jurídico.')" style="color: #aaa; margin: 0 10px; text-decoration: none;">Aviso Legal</a> |
+            <a href="#" onclick="alert('PRIVACIDAD: No recogemos ni almacenamos datos personales ni bancarios. Tus cálculos se procesan solo en tu navegador.')" style="color: #aaa; margin: 0 10px; text-decoration: none;">Privacidad</a> |
+            <a href="#" onclick="alert('COOKIES: Utilizamos cookies propias y de terceros para análisis de tráfico y publicidad.')" style="color: #aaa; margin: 0 10px; text-decoration: none;">Política de Cookies</a>
         </div>
-        
-        <button class="btn-next" style="margin-top:20px; background:#eee; color:#666;" onclick="showView('home')">Volver al inicio</button>
-    </div>
-
-    <div id="blog" class="blog-section">
-        <h2>Consejos de Expertos</h2>
-        <div class="article-card">
-            <h3>1. Diferencia entre Bruto y Neto</h3>
-            <p>El sueldo bruto es el total antes de impuestos. El neto es lo que llega a tu banco. Entender esto evita sorpresas en tu contrato.</p>
-        </div>
-        <div class="article-card">
-            <h3>2. Cómo pagar menos IRPF</h3>
-            <p>Aportar a planes de pensiones o tener hijos a cargo reduce la base sobre la que Hacienda calcula tus impuestos.</p>
-        </div>
-        <div class="article-card">
-            <h3>3. ¿Te han despedido? Revisa esto</h3>
-            <p>Siempre comprueba que tus vacaciones no disfrutadas estén incluidas en el finiquito final.</p>
-        </div>
-    </div>
-</div>
-
-<footer>
-    <p>&copy; 2026 NominPro.es - Todos los derechos reservados</p>
-    <a href="#" onclick="alert('Aviso Legal: Web informativa...')">Aviso Legal</a>
-    <a href="#" onclick="alert('Privacidad: No guardamos tus datos.')">Privacidad</a>
-    <a href="#" onclick="alert('Cookies: Usamos cookies para mejorar.')">Cookies</a>
-</footer>
-
-<script>
-    function showView(v) {
-        document.querySelectorAll('.view').forEach(el => el.classList.remove('active'));
-        document.getElementById('view-' + v).classList.add('active');
-        window.scrollTo(0,0);
-    }
-
-    function calcNomina() {
-        const bruto = document.getElementById('n-bruto').value;
-        const netoMes = (bruto * 0.78) / 12; // Estimación rápida
-        document.getElementById('res-main').innerText = netoMes.toFixed(2) + " €";
-        document.getElementById('res-title').innerText = "COBRARÁS CADA MES (NETO)";
-        showView('res');
-    }
-    // ... aquí irían las otras funciones de cálculo que ya teníamos
-</script>
-
-</body>
-</html>
+        <p style="font-size: 12px; color: #666;">© 2026 NominPro. Hecho con ❤️ para ayudar a los trabajadores.</p>
+    </footer>
