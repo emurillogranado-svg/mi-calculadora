@@ -7,17 +7,25 @@
     <title>NominPro.es | Consultor Financiero Integral 2026</title>
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;700;900&display=swap" rel="stylesheet">
     <style>
-        :root { --blue: #0052ff; --green: #00c853; --text: #1a1a1a; --light: #f4f7ff; --paypal: #003087; --red: #ff4d4d; --accent: #6366f1; }
+        :root { --blue: #0052ff; --green: #00c853; --text: #1a1a1a; --light: #f4f7ff; --paypal: #003087; --red: #ff4d4d; --accent: #6366f1; --border: #e2e8f0; }
         * { box-sizing: border-box; font-family: 'Outfit', sans-serif; }
         body { background-color: var(--light); color: var(--text); margin: 0; line-height: 1.6; }
+        
         header { background: white; padding: 15px 5%; display: flex; justify-content: space-between; align-items: center; position: sticky; top: 0; z-index: 1000; box-shadow: 0 2px 10px rgba(0,0,0,0.05); }
         .logo { font-size: 24px; font-weight: 900; color: var(--blue); text-decoration: none; }
+        
         .container { max-width: 900px; margin: 30px auto; background: white; border-radius: 30px; padding: 35px; box-shadow: 0 20px 40px rgba(0,0,0,0.05); position: relative; }
+        
+        /* MONETIZACIÓN */
+        .ad-top { margin-bottom: 25px; text-align: center; overflow: hidden; min-height: 90px; border: 1px dashed #ddd; border-radius: 15px; }
+        .promo-amazon { margin: 30px 0; text-align: center; background: #fffbe6; padding: 20px; border-radius: 20px; border: 1px solid #ffe58f; }
+        .promo-amazon a { color: #856404; font-weight: bold; text-decoration: underline; }
+
         .view { display: none; animation: fadeIn 0.4s; }
         .view.active { display: block; }
         @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
         
-        /* GRID PRINCIPAL */
+        /* GRID CALCULADORAS */
         .main-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 15px; margin-top: 20px;}
         .card { background: #fff; padding: 20px; border-radius: 20px; border: 2px solid #eee; cursor: pointer; text-align: center; transition: 0.3s; position: relative; }
         .card:hover { border-color: var(--blue); transform: translateY(-5px); box-shadow: 0 10px 20px rgba(0,0,0,0.05); }
@@ -25,27 +33,29 @@
         .card h3 { margin: 10px 0 5px; font-size: 16px; }
         .card p { font-size: 12px; color: #777; margin: 0; }
         
-        /* SECCIÓN LECTURA PRO (ESTILO INTELIGENTE) */
+        /* LECTURA PRO */
         .divider { margin: 40px 0 30px; border: 0; height: 1px; background: linear-gradient(to right, transparent, #ddd, transparent); position: relative; }
         .divider::after { content: "EXTRA"; position: absolute; top: -10px; left: 50%; transform: translateX(-50%); background: white; padding: 0 15px; font-size: 10px; font-weight: 900; color: #bbb; letter-spacing: 2px; }
-        
         .special-card { display: flex; align-items: center; background: linear-gradient(135deg, #f5f7ff 0%, #ffffff 100%); border: 2px solid var(--accent); padding: 20px; border-radius: 24px; text-decoration: none; transition: 0.3s; gap: 20px; }
-        .special-card:hover { transform: scale(1.02); box-shadow: 0 15px 30px rgba(99, 102, 241, 0.1); }
-        .special-icon { font-size: 40px; background: white; width: 70px; height: 70px; display: flex; align-items: center; justify-content: center; border-radius: 18px; box-shadow: 0 5px 15px rgba(0,0,0,0.05); }
-        .special-info { text-align: left; flex: 1; }
-        .special-info h3 { margin: 0; color: var(--accent); font-size: 1.2rem; }
-        .special-info p { margin: 5px 0 0; font-size: 0.9rem; color: #666; }
-        .special-arrow { font-size: 20px; color: var(--accent); font-weight: bold; }
+        .special-card:hover { transform: scale(1.01); box-shadow: 0 10px 20px rgba(99, 102, 241, 0.1); }
+        .special-icon { font-size: 30px; background: white; width: 55px; height: 55px; display: flex; align-items: center; justify-content: center; border-radius: 15px; box-shadow: 0 5px 10px rgba(0,0,0,0.05); }
 
-        .btn-info { position: absolute; top: 10px; right: 10px; background: #f0f0f0; border: none; border-radius: 50%; width: 22px; height: 22px; cursor: pointer; font-weight: bold; color: #999; font-size: 11px; }
-        .modal { display: none; position: fixed; z-index: 2000; left: 0; top: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.6); backdrop-filter: blur(5px); }
-        .modal-content { background: white; margin: 10vh auto; padding: 30px; border-radius: 25px; width: 90%; max-width: 550px; position: relative; max-height: 80vh; overflow-y: auto; }
-        .close-modal { position: absolute; top: 15px; right: 20px; font-size: 25px; cursor: pointer; color: #999; }
+        /* LEGALES Y MODALES */
+        footer { background: #1a1a1a; color: white; padding: 40px 5%; text-align: center; margin-top: 60px; font-size: 14px; }
+        footer a { color: #aaa; text-decoration: underline; margin: 0 10px; cursor: pointer; }
+        footer a:hover { color: white; }
+
+        .modal { display: none; position: fixed; z-index: 3000; left: 0; top: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.7); backdrop-filter: blur(4px); }
+        .modal-content { background: white; margin: 8vh auto; padding: 35px; border-radius: 25px; width: 90%; max-width: 650px; position: relative; max-height: 80vh; overflow-y: auto; text-align: left; }
+        .close-modal { position: absolute; top: 15px; right: 20px; font-size: 28px; cursor: pointer; color: #bbb; }
+
+        #cookie-banner { position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%); width: 95%; max-width: 550px; background: white; border-radius: 20px; padding: 25px; z-index: 9999; border: 2px solid var(--blue); display: none; box-shadow: 0 15px 50px rgba(0,0,0,0.3); text-align: center; }
+        
+        /* FORMULARIOS */
         label { display: block; margin-bottom: 5px; font-weight: 700; font-size: 14px; }
         input { width: 100%; padding: 12px; border: 2px solid #eee; border-radius: 12px; font-size: 16px; margin-bottom: 15px; }
         .btn-main { width: 100%; background: var(--blue); color: white; padding: 18px; border-radius: 15px; border: none; font-size: 18px; font-weight: 800; cursor: pointer; margin-top: 10px; transition: 0.3s;}
         .result-box { text-align:center; padding:40px; background: var(--blue); color:white; border-radius:25px; margin-bottom: 25px; }
-        footer { background: #1a1a1a; color: white; padding: 40px 5%; text-align: center; margin-top: 60px; }
     </style>
 </head>
 <body>
@@ -55,98 +65,91 @@
 </header>
 
 <div class="container">
+    <div class="ad-top">
+        <ins class="adsbygoogle"
+             style="display:block"
+             data-ad-client="ca-pub-3294385200593965"
+             data-ad-slot="5821034338"
+             data-ad-format="auto"
+             data-full-width-responsive="true"></ins>
+        <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+    </div>
+
     <div id="view-home" class="view active">
-        <h1 style="text-align:center; margin-bottom:5px;">Centro Financiero</h1>
-        <p style="text-align:center; color:#666; margin-bottom:30px;">Calculadoras inteligentes para tu economía.</p>
+        <h1 style="text-align:center; margin-bottom:5px;">Herramientas NominPro</h1>
+        <p style="text-align:center; color:#666; margin-bottom:30px;">Cálculos financieros precisos por <b>Eloy Murillo</b>.</p>
         
         <div class="main-grid">
-            <div class="card" onclick="setupForm('nomina')">
-                <button class="btn-info" onclick="event.stopPropagation(); showHelp('nomina')">i</button>
-                <span>👔</span><h3>Nómina</h3><p>Neto mensual</p>
-            </div>
-            <div class="card" onclick="setupForm('autonomo')">
-                <button class="btn-info" onclick="event.stopPropagation(); showHelp('autonomo')">i</button>
-                <span>🚀</span><h3>Autónomo</h3><p>Beneficio real</p>
-            </div>
-            <div class="card" onclick="setupForm('vivienda')">
-                <button class="btn-info" onclick="event.stopPropagation(); showHelp('vivienda')">i</button>
-                <span>🏠</span><h3>Hipoteca</h3><p>Cuota mensual</p>
-            </div>
-            <div class="card" onclick="setupForm('pension')">
-                <button class="btn-info" onclick="event.stopPropagation(); showHelp('pension')">i</button>
-                <span>👴</span><h3>Pensión</h3><p>Tu jubilación</p>
-            </div>
-            <div class="card" onclick="setupForm('extra')">
-                <button class="btn-info" onclick="event.stopPropagation(); showHelp('extra')">i</button>
-                <span>📈</span><h3>Ganancias</h3><p>Bolsa y apuestas</p>
-            </div>
-            <div class="card" onclick="setupForm('hormiga')">
-                <button class="btn-info" onclick="event.stopPropagation(); showHelp('hormiga')">i</button>
-                <span>☕</span><h3>Gasto Hormiga</h3><p>Pequeños vicios</p>
-            </div>
-            <div class="card" onclick="setupForm('inflacion')">
-                <button class="btn-info" onclick="event.stopPropagation(); showHelp('inflacion')">i</button>
-                <span>💸</span><h3>Inflación</h3><p>Poder de compra</p>
-            </div>
-            <div class="card" onclick="setupForm('alquiler')">
-                <button class="btn-info" onclick="event.stopPropagation(); showHelp('alquiler')">i</button>
-                <span>🔑</span><h3>Alquiler</h3><p>Salud financiera</p>
-            </div>
+            <div class="card" onclick="setupForm('nomina')"><span>👔</span><h3>Nómina</h3><p>Neto mensual</p></div>
+            <div class="card" onclick="setupForm('autonomo')"><span>🚀</span><h3>Autónomo</h3><p>Sueldo real</p></div>
+            <div class="card" onclick="setupForm('vivienda')"><span>🏠</span><h3>Hipoteca</h3><p>Cuota fija</p></div>
+            <div class="card" onclick="setupForm('pension')"><span>👴</span><h3>Pensión</h3><p>Jubilación</p></div>
+            <div class="card" onclick="setupForm('extra')"><span>📈</span><h3>Ganancias</h3><p>Impuestos bolsa</p></div>
+            <div class="card" onclick="setupForm('hormiga')"><span>☕</span><h3>Gasto Hormiga</h3><p>Fugas de dinero</p></div>
+            <div class="card" onclick="setupForm('inflacion')"><span>💸</span><h3>Inflación</h3><p>Poder de compra</p></div>
+            <div class="card" onclick="setupForm('alquiler')"><span>🔑</span><h3>Alquiler</h3><p>Límite 30%</p></div>
+        </div>
+
+        <div class="promo-amazon">
+            <p>📚 <b>Guía Financiera:</b> No dejes que la inflación se coma tus ahorros. <a href="https://www.amazon.es/dp/8441436440?tag=emurillog10-21" target="_blank">Lectura recomendada por Eloy →</a></p>
         </div>
 
         <hr class="divider">
 
         <a href="https://testlectura.es" target="_blank" class="special-card">
             <div class="special-icon">🧠</div>
-            <div class="special-info">
-                <h3>LecturaPro</h3>
-                <p>Mide tu velocidad de lectura y agilidad mental. Mejora tu productividad.</p>
+            <div style="flex:1;">
+                <h3 style="margin:0; color:var(--accent);">Test de LecturaPro</h3>
+                <p style="margin:0; font-size:13px; color:#666;">¿Qué tan rápido lees? Mide tu agilidad mental gratis.</p>
             </div>
-            <div class="special-arrow">→</div>
+            <div style="font-weight:bold; color:var(--accent);">PROBAR →</div>
         </a>
     </div>
 
     <div id="view-form" class="view">
-        <h2 id="form-title">Calculadora</h2>
+        <h2 id="form-title" style="text-align:center;">Calculadora</h2>
         <div id="form-inputs"></div>
-        <button id="form-btn" class="btn-main">REALIZAR CÁLCULO</button>
-        <button class="btn-main" style="margin-top:10px; background:#eee; color:#666;" onclick="showView('home')">Cancelar</button>
+        <button id="form-btn" class="btn-main">CALCULAR AHORA</button>
+        <button class="btn-main" style="background:#eee; color:#666; margin-top:10px;" onclick="showView('home')">Volver</button>
     </div>
 
     <div id="view-res" class="view">
         <div class="result-box">
-            <p id="res-label"></p>
-            <h2 id="res-main">0 €</h2>
+            <p id="res-label" style="opacity:0.8;"></p>
+            <h2 id="res-main" style="font-size:3rem; margin:10px 0;">0 €</h2>
             <p id="res-detail"></p>
         </div>
-        <button class="btn-main" style="background:#f0f0f0; color:#666;" onclick="showView('home')">← VOLVER</button>
+        <button class="btn-main" onclick="showView('home')">NUEVA CONSULTA</button>
     </div>
 </div>
 
-<div id="helpModal" class="modal">
-    <div class="modal-content">
-        <span class="close-modal" onclick="closeHelp()">&times;</span>
-        <h2 id="help-title">Información</h2>
-        <div id="help-body"></div>
-    </div>
+<div id="cookie-banner">
+    <p style="font-size:14px; margin-bottom:15px;">🍪 En <b>NominPro.es</b> usamos cookies para mejorar tu experiencia y mostrarte anuncios relevantes mediante Google AdSense y Amazon. <a onclick="showModal('modal-cookies')">Leer política</a>.</p>
+    <button class="btn-main" style="padding:12px; font-size:15px;" onclick="acceptCookies()">Aceptar todas</button>
 </div>
 
 <footer>
-    <p><strong>NOMINPRO.es</strong> | © 2026 Eloy Murillo</p>
+    <p><strong>NOMINPRO.es</strong> | © 2026 Eloy Murillo Granado</p>
+    <div style="margin-top:15px;">
+        <a onclick="showModal('modal-aviso')">Aviso Legal</a>
+        <a onclick="showModal('modal-privacidad')">Privacidad</a>
+        <a onclick="showModal('modal-cookies')">Cookies</a>
+    </div>
 </footer>
 
-<script>
-    const helps = {
-        nomina: "<h3>Sobre tu Nómina</h3><p>Calculamos el neto mensual restando cuotas e IRPF promedio.</p>",
-        autonomo: "<h3>Para Autónomos</h3><p>Neto tras restar cuota mínima e IRPF del 20%.</p>",
-        vivienda: "<h3>Tu Hipoteca</h3><p>Simulación mediante sistema francés de amortización.</p>",
-        pension: "<h3>Tu Jubilación</h3><p>Estimación según base de cotización actual.</p>",
-        extra: "<h3>Impuestos de Capital</h3><p>Basado en el tramo mínimo del ahorro (19%).</p>",
-        hormiga: "<h3>Gasto Hormiga</h3><p>Cálculo de cuánto dinero pierdes al año en gastos ínfimos.</p>",
-        inflacion: "<h3>Inflación</h3><p>Calcula cuánto valdría hoy un sueldo del pasado.</p>",
-        alquiler: "<h3>Salud del Alquiler</h3><p>Lo ideal es que no supere el 30% de tus ingresos netos.</p>"
-    };
+<div id="modal-aviso" class="modal"><div class="modal-content"><span class="close-modal" onclick="closeModal()">&times;</span>
+    <h2>Aviso Legal</h2><p>En cumplimiento de la LSSI, se informa que el titular de esta web es <b>Eloy Murillo Granado</b>. Contacto: <b>emurillogranado@gmail.com</b>. El uso de las calculadoras es orientativo y no constituye asesoramiento financiero oficial.</p>
+</div></div>
 
+<div id="modal-privacidad" class="modal"><div class="modal-content"><span class="close-modal" onclick="closeModal()">&times;</span>
+    <h2>Política de Privacidad</h2><p>No almacenamos datos personales en bases de datos propias. Los cálculos se realizan en tu navegador. Google AdSense utiliza cookies para personalizar anuncios basados en tus intereses.</p>
+</div></div>
+
+<div id="modal-cookies" class="modal"><div class="modal-content"><span class="close-modal" onclick="closeModal()">&times;</span>
+    <h2>Política de Cookies</h2><p>Utilizamos cookies técnicas y de terceros (Google AdSense y Amazon Affiliates) para el correcto funcionamiento y monetización del sitio. Puedes bloquearlas en la configuración de tu navegador.</p>
+</div></div>
+
+<script>
     function showView(v) {
         document.querySelectorAll('.view').forEach(el => el.classList.remove('active'));
         document.getElementById('view-' + v).classList.add('active');
@@ -160,46 +163,46 @@
         fInputs.innerHTML = '';
         
         if(type === 'nomina') {
-            fTitle.innerText = "Sueldo Neto Mensual";
+            fTitle.innerText = "Sueldo Neto";
             fInputs.innerHTML = '<label>Bruto Anual (€)</label><input type="number" id="v1" placeholder="Ej: 24000">';
-            fBtn.onclick = () => updateRes("Neto Mensual", ((document.getElementById('v1').value * 0.78) / 12).toFixed(2) + " €", "Estimación tras IRPF y SS.");
+            fBtn.onclick = () => updateRes("Tu Neto Mensual", ((document.getElementById('v1').value * 0.78) / 12).toFixed(2) + " €", "Estimación tras IRPF y SS.");
         } else if(type === 'vivienda') {
-            fTitle.innerText = "Cuota Hipoteca";
-            fInputs.innerHTML = '<label>Importe Préstamo (€)</label><input type="number" id="v1"><label>Interés Anual (%)</label><input type="number" id="v2"><label>Años</label><input type="number" id="v3">';
+            fTitle.innerText = "Hipoteca";
+            fInputs.innerHTML = '<label>Importe Préstamo (€)</label><input type="number" id="v1"><label>Interés %</label><input type="number" id="v2"><label>Años</label><input type="number" id="v3">';
             fBtn.onclick = () => {
                 const p = document.getElementById('v1').value, r = (document.getElementById('v2').value/100/12), n = (document.getElementById('v3').value*12);
-                updateRes("Cuota Mensual", ((p*r)/(1-Math.pow(1+r,-n))).toFixed(2) + " €", "Sistema francés de cuota fija.");
+                updateRes("Cuota Mensual", ((p*r)/(1-Math.pow(1+r,-n))).toFixed(2) + " €", "Simulación cuota fija.");
             };
         } else if(type === 'autonomo') {
-            fTitle.innerText = "Rendimiento Autónomo";
+            fTitle.innerText = "Sueldo Autónomo";
             fInputs.innerHTML = '<label>Ingresos Brutos Mensuales</label><input type="number" id="v1"><label>Gastos Mensuales</label><input type="number" id="v2">';
-            fBtn.onclick = () => updateRes("Sueldo Limpio", ((document.getElementById('v1').value - document.getElementById('v2').value - 300) * 0.8).toFixed(2) + " €", "Tras cuota mínima e IRPF.");
+            fBtn.onclick = () => updateRes("Beneficio Neto", ((document.getElementById('v1').value - document.getElementById('v2').value - 300) * 0.8).toFixed(2) + " €", "Tras cuota e impuestos.");
         } else if(type === 'hormiga') {
             fTitle.innerText = "Gasto Hormiga";
-            fInputs.innerHTML = '<label>Gasto diario (€)</label><input type="number" id="v1" placeholder="Ej: 3.50 (café y snack)">';
+            fInputs.innerHTML = '<label>Gasto Diario Pequeño (€)</label><input type="number" id="v1" placeholder="Ej: 3.50">';
             fBtn.onclick = () => {
                 const anual = document.getElementById('v1').value * 365;
-                updateRes("Gasto al año", anual.toFixed(2) + " €", "¡Si lo inviertes, en 20 años tendrías más de " + (anual*30).toFixed(0) + "€!");
+                updateRes("Pérdida Anual", anual.toFixed(2) + " €", "¡En 10 años serían " + (anual*10).toFixed(0) + "€!");
             };
         } else if(type === 'pension') {
-            fTitle.innerText = "Pensión Estimada";
-            fInputs.innerHTML = '<label>Base de cotización</label><input type="number" id="v1"><label>Años cotizados</label><input type="number" id="v2">';
-            fBtn.onclick = () => updateRes("Tu Pensión", (document.getElementById('v1').value * (document.getElementById('v2').value/37)).toFixed(2) + " €", "Estimación orientativa.");
+            fTitle.innerText = "Pensión";
+            fInputs.innerHTML = '<label>Sueldo Bruto Actual</label><input type="number" id="v1"><label>Años Cotizados</label><input type="number" id="v2">';
+            fBtn.onclick = () => updateRes("Pensión Mensual", (document.getElementById('v1').value * 0.8 * (document.getElementById('v2').value/37)).toFixed(2) + " €", "Cálculo orientativo.");
         } else if(type === 'inflacion') {
-            fTitle.innerText = "Efecto Inflación";
-            fInputs.innerHTML = '<label>Importe (€)</label><input type="number" id="v1"><label>% Inflación acumulada</label><input type="number" id="v2" value="20">';
-            fBtn.onclick = () => updateRes("Equivalencia hoy", (document.getElementById('v1').value * (1+(document.getElementById('v2').value/100))).toFixed(2) + " €", "Poder adquisitivo ajustado.");
+            fTitle.innerText = "Poder Adquisitivo";
+            fInputs.innerHTML = '<label>Importe (€)</label><input type="number" id="v1"><label>% Inflación</label><input type="number" id="v2" value="15">';
+            fBtn.onclick = () => updateRes("Equivalencia", (document.getElementById('v1').value * (1+(document.getElementById('v2').value/100))).toFixed(2) + " €", "Para mantener el nivel de vida.");
         } else if(type === 'alquiler') {
             fTitle.innerText = "Test Alquiler";
-            fInputs.innerHTML = '<label>Tus ingresos netos</label><input type="number" id="v1"><label>Precio Alquiler</label><input type="number" id="v2">';
+            fInputs.innerHTML = '<label>Sueldo Neto Mensual</label><input type="number" id="v1"><label>Precio Alquiler</label><input type="number" id="v2">';
             fBtn.onclick = () => {
                 const p = (document.getElementById('v2').value/document.getElementById('v1').value)*100;
-                updateRes("Esfuerzo", p.toFixed(1) + "%", p > 35 ? "❌ Superas el límite recomendado." : "✅ Proporción ideal.");
+                updateRes("Nivel de Esfuerzo", p.toFixed(1) + "%", p > 35 ? "❌ Superas el límite seguro." : "✅ Proporción ideal.");
             };
         } else if(type === 'extra') {
-            fTitle.innerText = "Ganancias Capital";
-            fInputs.innerHTML = '<label>Beneficio Neto</label><input type="number" id="v1">';
-            fBtn.onclick = () => updateRes("Impuesto (19%)", (document.getElementById('v1').value * 0.19).toFixed(2) + " €", "Tramo para ganancias hasta 6.000€.");
+            fTitle.innerText = "Impuestos Capital";
+            fInputs.innerHTML = '<label>Beneficio Neto Obtenido</label><input type="number" id="v1">';
+            fBtn.onclick = () => updateRes("Hacienda (19%)", (document.getElementById('v1').value * 0.19).toFixed(2) + " €", "Cálculo para tramo mínimo.");
         }
         showView('form');
     }
@@ -211,12 +214,20 @@
         showView('res');
     }
 
-    function showHelp(key) {
-        document.getElementById('help-title').innerText = "Información";
-        document.getElementById('help-body').innerHTML = helps[key];
-        document.getElementById('helpModal').style.display = 'block';
-    }
-    function closeHelp() { document.getElementById('helpModal').style.display = 'none'; }
+    // MODALES Y COOKIES
+    function showModal(id) { document.getElementById(id).style.display = 'block'; }
+    function closeModal() { document.querySelectorAll('.modal').forEach(m => m.style.display = 'none'); }
+    function acceptCookies() { localStorage.setItem('nominpro_cook', '1'); document.getElementById('cookie-banner').style.display = 'none'; }
+    
+    window.onload = function() {
+        if(!localStorage.getItem('nominpro_cook')) {
+            setTimeout(() => { document.getElementById('cookie-banner').style.display = 'block'; }, 2000);
+        }
+    };
+    
+    // Cerrar modal al clickear fuera
+    window.onclick = function(event) { if (event.target.className === 'modal') { closeModal(); } };
 </script>
+
 </body>
 </html>
